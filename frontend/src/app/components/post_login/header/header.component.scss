@@ -1,0 +1,12 @@
+@import '../../../../styles.scss';
+
+header {
+	@include dFlex($jc: space-between);
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: calc(100% - $sidebar-width);
+	height: $header-height;
+	padding: 0 40px 0 116px;
+	background-color: white;
+}

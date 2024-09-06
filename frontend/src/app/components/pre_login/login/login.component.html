@@ -1,0 +1,38 @@
+<section class="pre_headline">
+	<h1>Log in</h1>
+	<div class="separator_hor_light_blue"></div>
+</section>
+<section class="pre_body">
+	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<div class="form_element_wrap">
+			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(loginForm.controls.email) }">
+				<input type="email" placeholder="Email" formControlName="email" />
+				<img src="assets/img/mail.svg" />
+			</div>
+			@if (formInvalid(loginForm.controls.email)) { @if (loginForm.controls.email.errors?.['required']) {
+			<span class="error_message">Please enter an email address.</span>
+			} @if (loginForm.controls.email.errors?.['email']) {
+			<span class="error_message"> This is not a valid email address. </span>
+			} }
+		</div>
+		<div class="form_element_wrap">
+			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(loginForm.controls.password) }">
+				<input type="{{ passwordType }}" placeholder="Password" formControlName="password" (focus)="handlePasswordFieldFocus()" />
+				<img src="{{ passwordIcon }}" class="cursor_pointer" (click)="handlePasswordMasking()" />
+			</div>
+			@if (formInvalid(loginForm.controls.password)) { @if (loginForm.controls.password.errors?.['required']) {
+			<span class="error_message">Please enter a password.</span>
+			} @if (loginForm.controls.password.errors?.['minlength']) {
+			<span class="error_message"> The password must be at least 6 characters long. </span>
+			} }
+		</div>
+		<div class="input_wrap form_checkbox_wrap">
+			<input type="checkbox" formControlName="rememberMe" />
+			<span>Remember me</span>
+		</div>
+		<div class="form_button_wrap">
+			<button class="button_blue" type="submit" [disabled]="!loginForm.valid">Log in</button>
+			<button class="button_white" type="button">Guest Log in</button>
+		</div>
+	</form>
+</section>

@@ -1,0 +1,15 @@
+@import './../../../../styles.scss';
+
+.content_wrap {
+	@include dFlex();
+	width: 100%;
+	height: 100vh;
+	.content {
+		position: absolute;
+		top: $header-height;
+		left: $sidebar-width;
+		width: calc(100% - $sidebar-width);
+		height: calc(100vh - $header-height);
+		padding: 110px 0 0 96px;
+	}
+}

@@ -1,0 +1,43 @@
+@import '../../../../styles.scss';
+
+aside {
+	@include dFlex($fd: column, $jc: space-between);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: $sidebar-width;
+	height: 100vh;
+	padding: 64px 0;
+	background-color: $pale-blue;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+	.sidebar_top {
+		@include dFlex($fd: column);
+		gap: 114px;
+		nav {
+			@include dFlex($fd: column, $ai: flex-start);
+			gap: 16px;
+			a {
+				@include dFlex($jc: flex-start);
+				gap: 8px;
+				width: 100%;
+				padding: 8px 56px;
+				text-decoration: none;
+				&:hover {
+					background-color: $pale-blue-hover;
+				}
+				span {
+					@include font($color: white);
+				}
+			}
+		}
+	}
+	.sidebar_bottom {
+		@include dFlex($jc: flex-start);
+		width: 100%;
+		padding: 8px 0 8px 52px;
+		.legals_nav {
+			flex-direction: column;
+			height: 56px;
+		}
+	}
+}

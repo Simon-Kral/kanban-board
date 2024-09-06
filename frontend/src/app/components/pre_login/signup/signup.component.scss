@@ -1,0 +1,13 @@
+@import './../../../../styles.scss';
+
+.form_button_wrap {
+	@include dFlex();
+	margin-top: 20px;
+}
+.button_blue {
+	@include buttonBlue();
+}
+
+.button_white {
+	@include buttonWhite();
+}

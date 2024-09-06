@@ -1,1 +1,226 @@
-/* You can add global styles to this file, and also import other style files */
+$bg-color: #f6f7f8;
+$pale-blue: #2a3647;
+$pale-blue-hover: #2a3d59;
+$light-blue: #29abe2;
+$dark-blue: #091931;
+$light-grey: #d1d1d1;
+$error-red: #ff001f;
+$disabled: #cdcdcd;
+
+$header-height: 96px;
+$sidebar-width: 232px;
+
+@mixin dFlex($fd: row, $jc: center, $ai: center) {
+	display: flex;
+	flex-direction: $fd;
+	justify-content: $jc;
+	align-items: $ai;
+}
+
+@mixin font($weight: 400, $size: 16px, $color: black) {
+	font-variation-settings: 'wght' $weight;
+	font-weight: $weight;
+	font-size: $size;
+	color: $color;
+}
+
+@mixin buttonBlue() {
+	@include font($weight: 700, $color: white);
+	background-color: $pale-blue;
+	padding: 15px 16px;
+	border: none;
+	border-radius: 8px;
+	text-decoration: none;
+	transition: background-color 100ms;
+	cursor: pointer;
+	&:enabled:hover {
+		background-color: $light-blue;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	}
+	&:active {
+		background-color: $dark-blue;
+	}
+	&:disabled {
+		background-color: $disabled;
+	}
+}
+
+@mixin buttonWhite() {
+	@include font($weight: 700, $color: $pale-blue);
+	background-color: transparent;
+	padding: 15px 16px;
+	border: 1px solid $pale-blue;
+	border-radius: 8px;
+	text-decoration: none;
+	transition: background-color 100ms;
+	cursor: pointer;
+	&:enabled:hover {
+		border: 1px solid $light-blue;
+		color: $light-blue;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	}
+	&:active {
+		border: 1px solid $dark-blue;
+		color: $dark-blue;
+	}
+	&:disabled {
+		border: 1px solid $disabled;
+		color: $disabled;
+	}
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: $bg-color;
+	overflow: hidden;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Inter', sans-serif;
+}
+
+h1 {
+	@include font($weight: 700, $size: 61px);
+}
+
+h2 {
+	@include font($weight: 400, $size: 27px, $color: $pale-blue);
+}
+
+img {
+	max-width: 100%;
+}
+
+.cursor_pointer {
+	cursor: pointer;
+}
+
+.separator_hor_light_blue {
+	width: 150px;
+	height: 3px;
+	background-color: $light-blue;
+	border-radius: 3px;
+}
+
+.separator_vert_light_blue {
+	width: 3px;
+	height: 100%;
+	background-color: $light-blue;
+	border-radius: 3px;
+}
+
+.separator_vert_light_grey {
+	width: 2px;
+	height: 100%;
+	margin: 0 42px;
+	background-color: $light-grey;
+	border-radius: 3px;
+}
+
+.pre_headline {
+	@include dFlex($fd: column);
+	gap: 16px;
+	margin-bottom: 32px;
+}
+
+.pre_body {
+	form {
+		@include dFlex($fd: column);
+		gap: 12px;
+		.form_element_wrap {
+			.input_wrap {
+				position: relative;
+				margin-bottom: 20px;
+				input[type='email'],
+				input[type='password'],
+				input[type='text'] {
+					@include font($size: 20px);
+					width: 422px;
+					height: 48px;
+					border: 1px solid $light-grey;
+					border-radius: 10px;
+					padding: 12px 21px;
+					&::placeholder {
+						@include font($size: 20px, $color: $light-grey);
+					}
+					&:focus {
+						outline: none;
+						border: 1px solid $light-blue;
+					}
+				}
+
+				img {
+					width: 24px;
+					height: 24px;
+					object-fit: cover;
+					position: absolute;
+					right: 24px;
+					top: calc(50% - 12px);
+				}
+			}
+			.error_message {
+				@include font($color: $error-red, $size: 12px);
+			}
+		}
+	}
+}
+
+.form_checkbox_wrap {
+	@include dFlex();
+	input[type='checkbox'] {
+		width: 24px;
+		height: 24px;
+		appearance: none;
+		background-image: url('assets/img/check_unchecked.svg');
+		margin-right: 8px;
+		cursor: pointer;
+		transition: background-image 100ms;
+		&:hover {
+			background-image: url('assets/img/check_hover_unchecked.svg');
+		}
+		&:checked {
+			background-image: url('assets/img/check_checked.svg');
+			&:hover {
+				background-image: url('assets/img/check_hover_checked.svg');
+			}
+		}
+	}
+	span {
+		margin-top: 2px;
+	}
+}
+
+.legals_nav {
+	@include dFlex($jc: space-between);
+	a {
+		padding: 0 2.3px;
+		color: #a8a8a8;
+		text-decoration: none;
+		&:hover {
+			@include font($weight: 700, $color: $light-blue);
+			padding: 0;
+		}
+	}
+}
+
+.back_arrow {
+	cursor: pointer;
+	position: absolute;
+	top: 64px;
+	left: 48px;
+}
+
+.invalid {
+	margin-bottom: 0 !important;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('assets/fonts/Inter/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+}
