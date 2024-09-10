@@ -1,1 +1,47 @@
-<p>add-task works!</p>
+<section class="add_task_head">
+	<h1>Add Task</h1>
+</section>
+<section class="add_task_body">
+	<form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+		<div class="body_inputboxes">
+			<div class="left_inputbox">
+				<div class="form_element_wrap">
+					<div class="default_form_input" [ngClass]="{ invalid: formInvalid(addTaskForm.controls.title) }">
+						<input type="text" placeholder="Enter a Title" formControlName="title" />
+					</div>
+					@if (formInvalid(addTaskForm.controls.title)) { @if (addTaskForm.controls.title.errors?.['required']) {
+					<span class="error_message">Please enter an email address.</span>
+					}}
+				</div>
+				<div class="form_element_wrap">
+					<div class="default_form_textarea">
+						<textarea type="text" placeholder="Enter a Description" formControlName="description"></textarea>
+					</div>
+				</div>
+				<div class="form_element_wrap">
+					<div class="default_form_input">
+						<input type="text" placeholder="Select contacts to assign" formControlName="assignedTo" />
+					</div>
+				</div>
+			</div>
+			<div class="separator_vert_light_grey"></div>
+			<div class="right_inputbox">
+				<div class="form_element_wrap">
+					<div class="default_form_input" [ngClass]="{ invalid: formInvalid(addTaskForm.controls.title) }">
+						<input type="text" placeholder="Enter a Title" formControlName="title" />
+					</div>
+				</div>
+
+				<div class="form_element_wrap">
+					<div class="default_form_input">
+						<input type="text" placeholder="Select contacts to assign" formControlName="assignedTo" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form_button_wrap">
+			<button class="button_white" type="button">Clear</button>
+			<button class="button_blue" type="submit" [disabled]="!addTaskForm.valid">Create Task</button>
+		</div>
+	</form>
+</section>

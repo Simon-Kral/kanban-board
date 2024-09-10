@@ -5,7 +5,7 @@
 <section class="pre_body">
 	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 		<div class="form_element_wrap">
-			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(loginForm.controls.email) }">
+			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(loginForm.controls.email) }">
 				<input type="email" placeholder="Email" formControlName="email" />
 				<img src="assets/img/mail.svg" />
 			</div>
@@ -16,7 +16,7 @@
 			} }
 		</div>
 		<div class="form_element_wrap">
-			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(loginForm.controls.password) }">
+			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(loginForm.controls.password) }">
 				<input type="{{ passwordType }}" placeholder="Password" formControlName="password" (focus)="handlePasswordFieldFocus()" />
 				<img src="{{ passwordIcon }}" class="cursor_pointer" (click)="handlePasswordMasking()" />
 			</div>
@@ -26,7 +26,7 @@
 			<span class="error_message"> The password must be at least 6 characters long. </span>
 			} }
 		</div>
-		<div class="input_wrap form_checkbox_wrap">
+		<div class="default_form_input default_form_checkbox">
 			<input type="checkbox" formControlName="rememberMe" />
 			<span>Remember me</span>
 		</div>

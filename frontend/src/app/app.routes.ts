@@ -9,6 +9,7 @@ import { DashboardComponent } from './components/post_login/dashboard/dashboard.
 import { BoardComponent } from './components/post_login/board/board.component';
 import { AddTaskComponent } from './components/post_login/add-task/add-task.component';
 import { ContactsComponent } from './components/post_login/contacts/contacts.component';
+import { HelpComponent } from './components/post_login/help/help.component';
 
 export const routes: Routes = [
 	{
@@ -28,6 +29,7 @@ export const routes: Routes = [
 			{ path: 'board', component: BoardComponent },
 			{ path: 'add-task', component: AddTaskComponent },
 			{ path: 'contacts', component: ContactsComponent },
+			{ path: 'help', component: HelpComponent },
 		],
 	},
 

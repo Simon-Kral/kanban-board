@@ -45,17 +45,15 @@ export class LoginComponent {
 		return formControl.invalid && (formControl.touched || formControl.dirty);
 	}
 
-	async onSubmit() {
+	onSubmit() {
 		console.log('submitted form', this.loginForm.value, this.loginForm.invalid);
-		try {
-			let resp: any = await this.authService.loginWithEmailAndPassword(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
-			console.log(resp);
-			localStorage.setItem('token', resp.token);
-
-			this.router.navigateByUrl('/todos');
-		} catch (e) {
-			console.error(e);
-		}
+		this.authService.loginWithEmailAndPassword(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe({
+			next: (resp) => {
+				console.log(resp);
+				localStorage.setItem('token', resp.token);
+				this.router.navigateByUrl('/home');
+			},
+		});
 		this.loginForm.reset();
 	}
 }

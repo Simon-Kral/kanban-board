@@ -11,3 +11,7 @@
 .button_white {
 	@include buttonWhite();
 }
+
+.backend_error {
+	@include font($color: $error-red);
+}

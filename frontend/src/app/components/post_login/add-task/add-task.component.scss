@@ -1,0 +1,26 @@
+@import '../../../../styles.scss';
+
+.add_task_head {
+	margin-bottom: 56px;
+}
+
+.add_task_body {
+	height: 618px;
+	form {
+		height: 100%;
+		.body_inputboxes {
+			@include dFlex($jc: flex-start);
+			height: 424px;
+		}
+	}
+}
+
+.form_element_wrap {
+	.default_form_input {
+		input[type='email'],
+		input[type='password'],
+		input[type='text'] {
+			width: 440px;
+		}
+	}
+}

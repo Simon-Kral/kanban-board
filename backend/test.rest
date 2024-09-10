@@ -1,0 +1,39 @@
+tokens = {"monti": "ffc328cd69e9e862b92737d8f06e05c091949aab", "simon": "47ce25e19ef2e2dfdad75dbd90dc1e454c83339b"}
+
+###
+
+POST http://127.0.0.1:8000/signup/
+Content-Type: application/json
+
+{ "email": "test@mail.de", "password": "Si.K24111992", "first_name": "Test", "last_name": "user" }
+
+###
+
+POST http://127.0.0.1:8000/login/
+Content-Type: application/json
+
+{ "email": "test@mail.de", "password": "Si.K24111992" }
+
+###
+
+GET http://127.0.0.1:8000/test_token/
+Content-Type: application/json
+Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3
+
+###
+
+GET http://127.0.0.1:8000/tasks/
+Content-Type: application/json
+Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3
+
+###
+
+GET http://127.0.0.1:8000/user/
+Content-Type: application/json
+Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3
+
+###
+
+GET http://127.0.0.1:8000/users/
+Content-Type: application/json
+Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3

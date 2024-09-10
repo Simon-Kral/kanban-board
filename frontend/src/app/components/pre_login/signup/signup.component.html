@@ -6,17 +6,19 @@
 <section class="pre_body">
 	<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 		<div class="form_element_wrap">
-			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(signupForm.controls.name) }">
-				<input type="text" placeholder="Name" formControlName="name" />
+			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.name) }">
+				<input type="text" placeholder="Name" formControlName="name" (focus)="resetBackendErrors()" />
 				<img src="assets/img/person.svg" />
 			</div>
 			@if (formInvalid(signupForm.controls.name)) { @if (signupForm.controls.name.errors?.['required']) {
 			<span class="error_message">Please enter a name.</span>
+			}@else if (signupForm.controls.name.errors?.['nameIsFullName']) {
+			<span class="error_message">{{signupForm.controls.name.errors?.['nameIsFullName']}}</span>
 			}}
 		</div>
 		<div class="form_element_wrap">
-			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(signupForm.controls.email) }">
-				<input type="email" placeholder="Email" formControlName="email" />
+			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.email) }">
+				<input type="email" placeholder="Email" formControlName="email" (focus)="resetBackendErrors()" />
 				<img src="assets/img/mail.svg" />
 			</div>
 			@if (formInvalid(signupForm.controls.email)) { @if (signupForm.controls.email.errors?.['required']) {
@@ -26,7 +28,7 @@
 			} }
 		</div>
 		<div class="form_element_wrap">
-			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(signupForm.controls.password) }">
+			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.password) }">
 				<input type="{{ passwordType }}" placeholder="Password" formControlName="password" (focus)="handlePasswordFieldFocus()" />
 				<img src="{{ passwordIcon }}" class="cursor_pointer" (click)="handlePasswordMasking()" />
 			</div>
@@ -37,7 +39,7 @@
 			} }
 		</div>
 		<div class="form_element_wrap">
-			<div class="input_wrap" [ngClass]="{ invalid: formInvalid(signupForm.controls.confirmPassword) }">
+			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.confirmPassword) }">
 				<input type="{{ passwordType }}" placeholder="Confirm Password" formControlName="confirmPassword" (focus)="handlePasswordFieldFocus()" />
 				<img src="{{ passwordIcon }}" class="cursor_pointer" (click)="handlePasswordMasking()" />
 			</div>
@@ -48,13 +50,19 @@
 			} }
 		</div>
 		<div class="form_element_wrap">
-			<div class="input_wrap form_checkbox_wrap" [ngClass]="{ invalid: formInvalid(signupForm.controls.privacy) }">
+			<div class="default_form_input default_form_checkbox" [ngClass]="{ invalid: formInvalid(signupForm.controls.privacy) }">
 				<input type="checkbox" formControlName="privacy" />
 				<span>I accept the Privacy Policy</span>
 			</div>
 			@if (formInvalid(signupForm.controls.privacy)) { @if (signupForm.controls.privacy.errors?.['required']) {
 			<span class="error_message">Please accept the Privacy Policy.</span>
 			}}
+		</div>
+		<div class="backend_errors">
+			@for (error of backendErrorsSig(); track $index) {
+			<span class="backend_error">{{ error }}</span
+			><br />
+			}
 		</div>
 		<div class="form_button_wrap">
 			<button class="button_blue" type="submit" [disabled]="!signupForm.valid">Sign up</button>

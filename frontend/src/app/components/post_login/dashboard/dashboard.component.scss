@@ -27,7 +27,7 @@
 	width: 560px;
 	.card {
 		@include dFlex();
-		gap: 16px;
+		gap: 8px;
 		height: 168px;
 		min-width: 10px;
 		background-color: white;

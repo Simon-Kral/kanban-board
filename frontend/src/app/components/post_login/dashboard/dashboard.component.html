@@ -5,7 +5,7 @@
 </section>
 <section class="dashboard_body">
 	<div class="information_cards">
-		@for (card of cards; track card) {
+		@for (card of cardsSig(); track card) {
 		<div class="{{ card.name }} card">
 			@if ($index <= 2) {
 			<img src="assets/img/{{ card.name }}.svg" />
@@ -17,7 +17,7 @@
 			@if (card.name === 'urgent') {
 			<div class="separator_vert_light_grey"></div>
 			<div class="deadline">
-				<span class="date">October 16, 2022</span>
+				<span class="date">{{ mostUrgentDate }}</span>
 				<span>Upcoming Deadline</span>
 			</div>
 			}
@@ -26,6 +26,6 @@
 	</div>
 	<div class="greeting">
 		<span>Good morning,</span>
-		<span>Sofia Müller</span>
+		<span>{{ authService.currentUserSig()?.first_name }} {{ authService.currentUserSig()?.last_name }}</span>
 	</div>
 </section>

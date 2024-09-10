@@ -4,6 +4,7 @@ $pale-blue-hover: #2a3d59;
 $light-blue: #29abe2;
 $dark-blue: #091931;
 $light-grey: #d1d1d1;
+$link-grey: #a8a8a8;
 $error-red: #ff001f;
 $disabled: #cdcdcd;
 
@@ -116,7 +117,7 @@ img {
 }
 
 .separator_vert_light_grey {
-	width: 2px;
+	min-width: 2px;
 	height: 100%;
 	margin: 0 42px;
 	background-color: $light-grey;
@@ -133,45 +134,79 @@ img {
 	form {
 		@include dFlex($fd: column);
 		gap: 12px;
-		.form_element_wrap {
-			.input_wrap {
-				position: relative;
-				margin-bottom: 20px;
-				input[type='email'],
-				input[type='password'],
-				input[type='text'] {
-					@include font($size: 20px);
-					width: 422px;
-					height: 48px;
-					border: 1px solid $light-grey;
-					border-radius: 10px;
-					padding: 12px 21px;
-					&::placeholder {
-						@include font($size: 20px, $color: $light-grey);
-					}
-					&:focus {
-						outline: none;
-						border: 1px solid $light-blue;
-					}
-				}
+	}
+}
 
-				img {
-					width: 24px;
-					height: 24px;
-					object-fit: cover;
-					position: absolute;
-					right: 24px;
-					top: calc(50% - 12px);
-				}
-			}
-			.error_message {
-				@include font($color: $error-red, $size: 12px);
-			}
+.default_form_input {
+	position: relative;
+	margin-bottom: 20px;
+	input[type='email'],
+	input[type='password'],
+	input[type='text'] {
+		@include font($size: 20px);
+		width: 422px;
+		height: 48px;
+		border: 1px solid $light-grey;
+		border-radius: 10px;
+		padding: 12px 21px;
+		&::placeholder {
+			@include font($size: 20px, $color: $light-grey);
+		}
+		&:focus {
+			outline: none;
+			border: 1px solid $light-blue;
+		}
+	}
+	img {
+		width: 24px;
+		height: 24px;
+		object-fit: cover;
+		position: absolute;
+		right: 24px;
+		top: calc(50% - 12px);
+	}
+}
+
+.default_form_textarea {
+	@include dFlex();
+	position: relative;
+	margin-bottom: 20px;
+	&::after {
+		position: absolute;
+		pointer-events: none;
+		content: '';
+		height: 19px;
+		width: 19px;
+		bottom: 6px;
+		right: 6px;
+		background: url('assets/img/resize_handler.svg') no-repeat;
+	}
+	textarea {
+		@include font($size: 20px);
+		width: 440px;
+		height: 120px;
+		border: 1px solid $light-grey;
+		border-radius: 10px;
+		padding: 12px 21px;
+		resize: vertical;
+		&::placeholder {
+			@include font($size: 20px, $color: $light-grey);
+		}
+		&:focus {
+			outline: none;
+			border: 1px solid $light-blue;
+		}
+		&::-webkit-resizer {
+			display: none;
 		}
 	}
 }
 
-.form_checkbox_wrap {
+.error_message {
+	@include font($color: $error-red, $size: 12px);
+}
+
+.default_form_checkbox {
 	@include dFlex();
 	input[type='checkbox'] {
 		width: 24px;
@@ -200,7 +235,7 @@ img {
 	@include dFlex($jc: space-between);
 	a {
 		padding: 0 2.3px;
-		color: #a8a8a8;
+		@include font($color: $link-grey);
 		text-decoration: none;
 		&:hover {
 			@include font($weight: 700, $color: $light-blue);
