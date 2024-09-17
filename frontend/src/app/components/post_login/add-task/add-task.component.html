@@ -4,44 +4,142 @@
 <section class="add_task_body">
 	<form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
 		<div class="body_inputboxes">
-			<div class="left_inputbox">
+			<div class="inputbox">
 				<div class="form_element_wrap">
+					<h3>Title<span class="required">*</span></h3>
 					<div class="default_form_input" [ngClass]="{ invalid: formInvalid(addTaskForm.controls.title) }">
 						<input type="text" placeholder="Enter a Title" formControlName="title" />
 					</div>
 					@if (formInvalid(addTaskForm.controls.title)) { @if (addTaskForm.controls.title.errors?.['required']) {
-					<span class="error_message">Please enter an email address.</span>
+					<span class="error_message">This field is required</span>
 					}}
 				</div>
 				<div class="form_element_wrap">
+					<h3>Description</h3>
 					<div class="default_form_textarea">
 						<textarea type="text" placeholder="Enter a Description" formControlName="description"></textarea>
 					</div>
 				</div>
 				<div class="form_element_wrap">
+					<h3>Assigned To</h3>
 					<div class="default_form_input">
-						<input type="text" placeholder="Select contacts to assign" formControlName="assignedTo" />
+						<input class="default_input_field zi5" placeholder="Select contacts to assign" (focus)="onFocus('assignedTo')" (blur)="onBlur('assignedTo')" #searchAssignedTo />
+						<input class="d_none" data="assignedToList" formControlName="assignedTo" />
+						<div class="arrow_dropdown" [ngClass]="{ close_dropdown: assignedToDropdown }" (mousedown)="$event.preventDefault()" (click)="assignedToDropdown ? searchAssignedTo.blur() : searchAssignedTo.focus()"></div>
 					</div>
+					@if (assignedToDropdown) {
+					<ul class="dropdown zi2" (mousedown)="$event.preventDefault()">
+						@for (user of usersSig(); track user) {
+						<li class="user_list_item" [ngClass]="{ selected_user: userIsSelected(user) }" (click)="selectUser(user)">
+							<div class="list_item_name">
+								<div class="user_initials" [style]="getUserStyle(user)">{{ user.initials }}</div>
+								<span class="user_name">{{ user.first_name }} {{ user.last_name }}</span>
+							</div>
+							<div class="list_item_checkbox"></div>
+						</li>
+						}
+					</ul>
+					}
+					<ul class="selected_users">
+						@for (user of assignedToList; track $index) {
+						<li class="user_initials" [style]="getUserStyle(user)">{{ user.initials }}</li>
+						}
+					</ul>
 				</div>
 			</div>
 			<div class="separator_vert_light_grey"></div>
-			<div class="right_inputbox">
+			<div class="inputbox">
 				<div class="form_element_wrap">
-					<div class="default_form_input" [ngClass]="{ invalid: formInvalid(addTaskForm.controls.title) }">
-						<input type="text" placeholder="Enter a Title" formControlName="title" />
+					<h3>Due Date<span class="required">*</span></h3>
+					<div class="default_form_input" [ngClass]="{ invalid: formInvalid(addTaskForm.controls.dueDate) }">
+						<input type="text" placeholder="dd/mm/yyyy" formControlName="dueDate" />
+						<input type="date" formControlName="datePicker" (change)="transferDate()" min="{{ today }}" />
+					</div>
+					@if (formInvalid(addTaskForm.controls.dueDate)) { @if (addTaskForm.controls.dueDate.errors?.['required']) {
+					<span class="error_message">This field is required</span>
+					}@else if (addTaskForm.controls.dueDate.errors?.['pattern']) {
+					<span class="error_message">Enter a valid date in the correct format.</span>
+					}@else if (addTaskForm.controls.dueDate.errors?.['dateInPast']) {
+					<span class="error_message">{{addTaskForm.controls.dueDate.errors?.['dateInPast']}}</span>
+					}}
+				</div>
+				<div class="form_element_wrap">
+					<h3>Prio</h3>
+					<div class="prio_form_input">
+						<input class="d_none" type="number" formControlName="prio" />
+						<label class="urgent" (click)="setPrio(1)" [ngClass]="{ selected_prio: prioIsSelected(1) }"><span>Urgent</span><img src="assets/img/prio_urgent.png" /></label>
+						<label class="medium" (click)="setPrio(2)" [ngClass]="{ selected_prio: prioIsSelected(2) }"><span>Medium</span><img src="assets/img/prio_medium.png" /></label>
+						<label class="low" (click)="setPrio(3)" [ngClass]="{ selected_prio: prioIsSelected(3) }"><span>Low</span><img src="assets/img/prio_low.png" /></label>
 					</div>
 				</div>
-
 				<div class="form_element_wrap">
+					<h3>Category<span class="required">*</span></h3>
+					<div class="default_form_input" [ngClass]="{ invalid: formInvalid(addTaskForm.controls.category) }">
+						<input class="zi5" type="text" placeholder="Category" formControlName="category" (focus)="onFocus('category')" (blur)="onBlur('category')" #searchCategory />
+						<div class="arrow_dropdown" [ngClass]="{ close_dropdown: categoryDropdown }" (mousedown)="$event.preventDefault()" (click)="categoryDropdown ? searchCategory.blur() : searchCategory.focus()"></div>
+					</div>
+					@if (formInvalid(addTaskForm.controls.category)) { @if (addTaskForm.controls.category.errors?.['required']) {
+					<span class="error_message">This field is required</span>
+					}@else if (addTaskForm.controls.category.errors?.['categoryDoesNotExist']) {
+					<span class="error_message">{{addTaskForm.controls.category.errors?.['categoryDoesNotExist']}}</span>
+					}} @if (categoryDropdown) {
+					<ul class="dropdown zi2" (mousedown)="$event.preventDefault()">
+						@for (category of categoryList; track category) {
+						<li class="category_list_item" (click)="selectCategory($index)">
+							<span class="category_name">{{ category }}</span>
+						</li>
+						}
+					</ul>
+					}
+				</div>
+				<div class="form_element_wrap">
+					<h3>Subtasks</h3>
 					<div class="default_form_input">
-						<input type="text" placeholder="Select contacts to assign" formControlName="assignedTo" />
+						<input type="text" placeholder="Subtasks" #addSubtaskInput (focus)="inputAddSubtask.classList.add('d_none'); inputIcons.classList.remove('d_none')" (blur)="inputAddSubtask.classList.remove('d_none'); inputIcons.classList.add('d_none')" />
+						<input class="d_none" data="subtaskList" formControlName="subtasks" />
+						<div class="edit_subtask_icons">
+							<div class="add_subtask" (click)="addSubtaskInput.focus()" #inputAddSubtask></div>
+						</div>
+						<div class="edit_subtask_icons d_none" #inputIcons>
+							<div class="cancel_subtask" (click)="addSubtaskInput.value = ''"></div>
+							<div class="separator_vert_light_grey"></div>
+							<div class="confirm_subtask" (click)="addSubtask(addSubtaskInput.value); addSubtaskInput.value = ''" (mousedown)="$event.preventDefault()"></div>
+						</div>
 					</div>
 				</div>
+				<ul class="subtask_list">
+					@for (subtask of subtaskList; track subtask) {
+					<div class="subtask_list_item">
+						<div class="edit_subtask_wrap d_none" #editSubtaskWrap>
+							<input class="edit_subtask_input" type="text" value="{{ subtask }}" #editSubtaskInput />
+							<div class="edit_subtask_icons">
+								<div class="delete_subtask" (click)="deleteSubtask($index)"></div>
+								<div class="separator_vert_light_grey"></div>
+								<div class="confirm_subtask" (click)="confirmSubtask($index, editSubtaskInput, subtaskWrap, editSubtaskWrap)"></div>
+							</div>
+						</div>
+						<div class="subtask_wrap" #subtaskWrap>
+							<li>
+								<span class="subtask_name">{{ subtask }}</span>
+								<div class="edit_subtask_icons">
+									<div class="open_subtask" (click)="openSubtask(subtaskWrap, editSubtaskWrap)"></div>
+									<div class="separator_vert_light_grey"></div>
+									<div class="delete_subtask" (click)="deleteSubtask($index)"></div>
+								</div>
+							</li>
+						</div>
+					</div>
+					}
+				</ul>
 			</div>
 		</div>
-		<div class="form_button_wrap">
-			<button class="button_white" type="button">Clear</button>
-			<button class="button_blue" type="submit" [disabled]="!addTaskForm.valid">Create Task</button>
+		<div class="body_footer">
+			<div class="required_info"><span class="required">*</span><span>This field is required</span></div>
+			<div class="form_button_wrap">
+				<button class="button_white" type="button">Clear</button>
+				<!-- <button class="button_blue" type="submit">Create Task</button> -->
+				<button class="button_blue" type="submit" [disabled]="!addTaskForm.valid">Create Task</button>
+			</div>
 		</div>
 	</form>
 </section>

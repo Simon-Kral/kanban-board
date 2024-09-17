@@ -17,8 +17,26 @@ export class DbService {
 		return this.http.get(url);
 	}
 
-	getUsers() {
-		const url = environment.baseUrl + '/users/';
-		return this.http.get(url) as Observable<User[]>;
+	getContacts() {
+		const url = environment.baseUrl + '/contacts/';
+		return this.http.get(url) as Observable<Object[]>;
+	}
+
+	addTask(formData: any) {
+		const url = environment.baseUrl + '/tasks/';
+		let assignedToUsers: number[] = [];
+		formData.assignedTo.forEach((user: User) => {
+			assignedToUsers.push(user.id!);
+		});
+		const body = {
+			title: formData.title,
+			description: formData.description,
+			assigned_to: assignedToUsers,
+			due_date: formData.dueDate.split('/').reverse().join('-'),
+			prio: formData.prio,
+			category: formData.category,
+			subtasks: formData.subtasks,
+		};
+		return this.http.post(url, body) as Observable<any>;
 	}
 }

@@ -5,6 +5,7 @@ export class User {
 	first_name: string;
 	last_name: string;
 	initials: string;
+	color: string;
 
 	constructor(obj?: any) {
 		const first_name_pattern = /^[\w]+(?=(\s{1}[\w]+)+)/;
@@ -15,5 +16,6 @@ export class User {
 		this.first_name = obj.name ? obj.name.match(first_name_pattern)![0] : obj.first_name ? obj.first_name : '';
 		this.last_name = obj.name ? obj.name.match(last_name_pattern)![0] : obj.last_name ? obj.last_name : '';
 		this.initials = obj.initials ? obj.initials : 'not found';
+		this.color = obj.color ? obj.color : 'not found';
 	}
 }

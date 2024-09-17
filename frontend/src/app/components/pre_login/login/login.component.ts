@@ -1,7 +1,6 @@
 import { JsonPipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormControl, Validators, ReactiveFormsModule, NonNullableFormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormControl, Validators, ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
 

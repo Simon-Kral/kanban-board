@@ -17,14 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from kanbanapp.views import login, signup, current_user, users, tasks, test_token
+from kanbanapp.views import login, signup, current_user, contacts, tasks, test_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login),
-    path('signup/', signup),
-    path('user/', current_user),
-    path('users/', users),
-    path('tasks/', tasks),
+    path('api/login/', login),
+    path('api/signup/', signup),
+    path('api/user/', current_user),
+    path('api/contacts/', contacts),
+    path('api/tasks/', tasks),
     path('test_token/', test_token),
 ]

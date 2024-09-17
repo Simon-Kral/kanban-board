@@ -7,9 +7,9 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
 
-from .serializers import UserSerializer, TaskSerializer, UsersSerializer
+from .serializers import UserSerializer, TaskSerializer, ContactsSerializer
 
-from .models import CustomUser, Task
+from .models import CustomUser, Task, Subtask
 
 @api_view(['POST'])
 def signup(request):
@@ -44,28 +44,41 @@ def test_token(request):
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def tasks(request):
-    tasks = Task.objects.all()
-    # tasks = TaskItem.objects.filter(author=request.user)
-    serializer = TaskSerializer(tasks, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def current_user(request):
     user = request.user
     return Response({
         'email': user.email,
         'first_name': user.first_name,     
         'last_name': user.last_name,
-        'initials': user.initials
+        'initials': user.initials,
+        'color': user.color 
     })
 
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def users(request):
-    users = CustomUser.objects.all()
-    serializer = UsersSerializer(users, many=True)
+def contacts(request):
+    contacts = CustomUser.objects.all()
+    serializer = ContactsSerializer(contacts, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET', 'POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def tasks(request):
+    tasks = Task.objects.all()
+    subtasks = Subtask.objects.all()
+    # tasks = TaskItem.objects.filter(author=request.user)
+    serializer = TaskSerializer(tasks, many=True)
+    if request.method == 'POST':
+        task = Task.objects.create(author=request.user, title=request.data.get('title', ''), description=request.data.get('description', ''), due_date=request.data.get('due_date', ''), prio=request.data.get('prio', ''), category=request.data.get('category', ''))
+
+        assigned_to_users = CustomUser.objects.filter(pk__in=request.data.get('assigned_to', ''))
+        task.assigned_to.add(*assigned_to_users)
+        task.save()
+
+        for subtask in request.data.get('subtasks', ''):
+            new_subtask = Subtask.objects.create(task=task, title=subtask)
+        return Response('task created')
+
     return Response(serializer.data)

@@ -4,8 +4,10 @@ $pale-blue-hover: #2a3d59;
 $light-blue: #29abe2;
 $dark-blue: #091931;
 $light-grey: #d1d1d1;
+$li-grey: #eeeeee;
 $link-grey: #a8a8a8;
 $error-red: #ff001f;
+$required-red: #ff8190;
 $disabled: #cdcdcd;
 
 $header-height: 96px;
@@ -32,7 +34,6 @@ $sidebar-width: 232px;
 	border: none;
 	border-radius: 8px;
 	text-decoration: none;
-	transition: background-color 100ms;
 	cursor: pointer;
 	&:enabled:hover {
 		background-color: $light-blue;
@@ -53,7 +54,6 @@ $sidebar-width: 232px;
 	border: 1px solid $pale-blue;
 	border-radius: 8px;
 	text-decoration: none;
-	transition: background-color 100ms;
 	cursor: pointer;
 	&:enabled:hover {
 		border: 1px solid $light-blue;
@@ -84,6 +84,7 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Inter', sans-serif;
+	transition: all 100ms;
 }
 
 h1 {
@@ -94,12 +95,34 @@ h2 {
 	@include font($weight: 400, $size: 27px, $color: $pale-blue);
 }
 
+h3 {
+	@include font($weight: 400, $size: 20px, $color: $pale-blue);
+	margin-bottom: 8px;
+}
+
+.required {
+	@include font($weight: 400, $size: 20px, $color: $required-red);
+}
+
 img {
 	max-width: 100%;
 }
 
+.d_none {
+	display: none !important;
+}
+
 .cursor_pointer {
 	cursor: pointer;
+}
+
+.zi5 {
+	position: relative;
+	z-index: 5;
+}
+.zi2 {
+	position: relative;
+	z-index: 2;
 }
 
 .separator_hor_light_blue {
@@ -142,7 +165,8 @@ img {
 	margin-bottom: 20px;
 	input[type='email'],
 	input[type='password'],
-	input[type='text'] {
+	input[type='text'],
+	.default_input_field {
 		@include font($size: 20px);
 		width: 422px;
 		height: 48px;
@@ -215,7 +239,6 @@ img {
 		background-image: url('assets/img/check_unchecked.svg');
 		margin-right: 8px;
 		cursor: pointer;
-		transition: background-image 100ms;
 		&:hover {
 			background-image: url('assets/img/check_hover_unchecked.svg');
 		}

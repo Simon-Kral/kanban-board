@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
 	setCards(tasks: Task[]) {
 		this.getCardByName('todo').amount = this.countInTasks(tasks, 'status', 'todo');
 		this.getCardByName('done').amount = this.countInTasks(tasks, 'status', 'done');
-		this.getCardByName('urgent').amount = this.countInTasks(tasks, 'prio', 3);
+		this.getCardByName('urgent').amount = this.countInTasks(tasks, 'prio', 1);
 		this.mostUrgentDate = this.getMostUrgentDate(tasks);
 		this.getCardByName('board').amount = tasks.length;
 		this.getCardByName('progress').amount = this.countInTasks(tasks, 'status', 'inProgress');
