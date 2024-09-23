@@ -1,1 +1,54 @@
-<p>board works!</p>
+<section class="board_head">
+	<h1>Board</h1>
+	<nav>
+		<div class="default_form_input">
+			<input type="text" placeholder="Find Task" (keyup)="changeSearchValue($event)" />
+			<div class="search_subtask_icons">
+				<div class="separator_vert_light_grey"></div>
+				<div class="search_task"></div>
+			</div>
+		</div>
+		<button class="button_blue" (click)="utilityService.overlaySig.set(true)"><span>Add Task</span><img src="assets/img/add_white.svg" /></button>
+	</nav>
+</section>
+<section class="board_body">
+	@for (column of [{name: 'To do', status: 'todo'}, {name: 'In progress', status: 'inProgress'}, {name: 'Await feedback', status: 'awaitFeedback'}, {name: 'Done', status: 'done'}]; track $index) {
+	<div class="task_column">
+		<div class="column_head">
+			<h4>{{ column.name }}</h4>
+			@if (column.name != 'Done') {
+			<div class="plus_button" (click)="openAddTask(column.status)"></div>
+			}
+		</div>
+		<div class="column_body" (dragover)="onDragOver($event)" (drop)="onDrop(column.status)">
+			@if (noTasksFound(column.status)) {
+			<span class="no_tasks">No tasks {{ column.name }}</span>
+			} @for (task of dbService.visibleTasksSig(); track $index) { @if(task.status === column.status) {
+			<div class="task_card" draggable="true" (dragstart)="onDragStart(task)">
+				<div class="category_section">
+					<span class="task_category" [style]="dbService.getCategoryStyle(task.category)">{{ task.category }}</span>
+				</div>
+				<div class="text_section">
+					<h5 class="task_title">{{ task.title }}</h5>
+					<span class="task_description">{{ task.description }}</span>
+				</div>
+				@if (dbService.getSubtaskAmount(task.id) > 0) {
+				<div class="subtask_section">
+					<progress value="{{ dbService.getFinishedSubtasks(task.id) }}" max="{{ dbService.getSubtaskAmount(task.id) }}"></progress>
+					<span class="subtasks_text">{{ dbService.getFinishedSubtasks(task.id) }}/{{ dbService.getSubtaskAmount(task.id) }} Subtasks</span>
+				</div>
+				}
+				<div class="additional_info_section">
+					<div class="assigned_to_users">
+						@for (uid of task.assigned_to; track $index) {
+						<span class="user_initials" [style]="{ 'background-color': dbService.getContactParameterById(uid, 'color') }">{{ dbService.getContactParameterById(uid, 'initials') }}</span>
+						}
+					</div>
+					<img class="{{ dbService.getPrioStringFromNumber(task.prio) }}" src="assets/img/prio_{{ dbService.getPrioStringFromNumber(task.prio) }}.png" />
+				</div>
+			</div>
+			} }
+		</div>
+	</div>
+	}
+</section>

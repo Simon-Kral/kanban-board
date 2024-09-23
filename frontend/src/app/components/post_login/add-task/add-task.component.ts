@@ -1,8 +1,10 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, NonNullableFormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { DbService } from '../../../services/db/db.service';
-import { User } from '../../../models/user.class';
+import { AuthService } from '../../../services/auth/auth.service';
+import { UtilityService } from '../../../services/utitily/utility.service';
+import { Contact } from '../../../models/contact.class';
 
 export const dateValidator = (today: string): ValidatorFn => {
 	return (control: AbstractControl): ValidationErrors | null => {
@@ -26,14 +28,16 @@ export const categoryValidator = (categoryList: string[]): ValidatorFn => {
 	styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent implements OnInit {
-	cdr = inject(ChangeDetectorRef);
 	fb = inject(NonNullableFormBuilder);
 	dbService = inject(DbService);
-	usersSig = signal<User[] | null>([]);
+	authService = inject(AuthService);
+	utilityService = inject(UtilityService);
+
+	assignedToDropdown: boolean = false;
+	categoryDropdown: boolean = false;
+
 	today: string = new Date().toISOString().split('T')[0];
-	assignedToDropdown: Boolean = false;
-	categoryDropdown: Boolean = false;
-	assignedToList: User[] = [];
+	assignedToList: Contact[] = [];
 	categoryList: string[] = ['Technical Task', 'User Story'];
 	subtaskList: string[] = [];
 
@@ -48,33 +52,18 @@ export class AddTaskComponent implements OnInit {
 		subtasks: [this.subtaskList, []],
 	});
 
-	ngOnInit(): void {
-		this.dbService.getContacts().subscribe({
-			next: (contactsList) => {
-				let users: User[] = [];
-				contactsList.forEach((contactData) => {
-					const user = new User(contactData);
-					users.push(user);
-				});
-				this.usersSig.set(users);
-				this.cdr.markForCheck();
-			},
-		});
-	}
+	ngOnInit(): void {}
 
-	formInvalid(formControl: FormControl<string | boolean>) {
+	formInvalid(formControl: FormControl<string | boolean>): boolean {
 		return formControl.invalid && (formControl.touched || formControl.dirty);
 	}
 
-	onSubmit() {
-		console.log(this.addTaskForm.value);
-		this.dbService.addTask(this.addTaskForm.value).subscribe({
+	onSubmit(): void {
+		this.dbService.addTask(this.addTaskForm.getRawValue()).subscribe({
 			next: (resp) => {
-				if (resp === 'task created') {
-					console.log(resp);
-					this.addTaskForm.reset();
-					this.assignedToList = [];
-					this.subtaskList = [];
+				if (resp.hasOwnProperty('id') && resp.hasOwnProperty('status')) {
+					this.resetAfterTaskCreation();
+					this.dbService.tasksSig.update((prevTasks) => [...prevTasks, resp]);
 				} else {
 					console.log('error', resp);
 				}
@@ -82,67 +71,71 @@ export class AddTaskComponent implements OnInit {
 		});
 	}
 
-	transferDate() {
+	resetAfterTaskCreation(): void {
+		this.addTaskForm.reset();
+		this.assignedToList = [];
+		this.subtaskList = [];
+		this.utilityService.overlaySig.set(false);
+		this.utilityService.taskStatus = 'todo';
+	}
+
+	transferDate(): void {
 		const pickerValue = this.addTaskForm.controls.datePicker.value;
 		let dueDate = this.addTaskForm.controls.dueDate;
 		dueDate.setValue(pickerValue.split('-').reverse().join('/'));
 	}
 
-	getUserStyle(user: User) {
-		return { 'background-color': user.color };
-	}
-
-	selectUser(user: User) {
-		if (this.assignedToList.includes(user)) {
-			const index = this.assignedToList.findIndex((element) => element.id === user.id);
-			this.assignedToList.splice(index);
+	selectContact(contact: Contact): void {
+		if (this.contactIsSelected(contact)) {
+			const index = this.assignedToList.findIndex((element) => element.id === contact.id);
+			this.assignedToList.splice(index, 1);
 		} else {
-			this.assignedToList.push(user);
+			this.assignedToList.push(contact);
 		}
 	}
 
-	userIsSelected(user: User) {
-		return this.addTaskForm.controls.assignedTo.value.includes(user);
+	contactIsSelected(contact: Contact): boolean {
+		return this.assignedToList.includes(contact);
 	}
 
-	prioIsSelected(prio: number) {
+	prioIsSelected(prio: number): boolean {
 		return this.addTaskForm.controls.prio.value === prio;
 	}
 
-	onFocus(elementName: string) {
+	onFocus(elementName: string): void {
 		if (elementName === 'assignedTo') this.assignedToDropdown = true;
 		if (elementName === 'category') this.categoryDropdown = true;
 	}
 
-	onBlur(elementName: string) {
+	onBlur(elementName: string): void {
 		if (elementName === 'assignedTo') this.assignedToDropdown = false;
 		if (elementName === 'category') this.categoryDropdown = false;
 	}
 
-	setPrio(prio: number) {
+	setPrio(prio: number): void {
 		this.addTaskForm.controls.prio.setValue(prio);
 	}
 
-	selectCategory(index: number) {
+	selectCategory(index: number): void {
 		this.addTaskForm.controls.category.setValue(this.categoryList[index]);
 		this.onBlur('category');
 	}
 
-	addSubtask(subtask: string) {
+	addSubtask(subtask: string): void {
 		this.subtaskList.push(subtask);
 	}
 
-	deleteSubtask(index: number) {
+	deleteSubtask(index: number): void {
 		this.subtaskList.splice(index, 1);
 	}
 
-	confirmSubtask(index: number, input: HTMLInputElement, subtask: HTMLDivElement, editSubtask: HTMLDivElement) {
+	confirmSubtask(index: number, input: HTMLInputElement, subtask: HTMLDivElement, editSubtask: HTMLDivElement): void {
 		this.subtaskList[index] = input.value;
 		subtask.classList.remove('d_none');
 		editSubtask.classList.add('d_none');
 	}
 
-	openSubtask(subtask: HTMLDivElement, editSubtask: HTMLDivElement) {
+	openSubtask(subtask: HTMLDivElement, editSubtask: HTMLDivElement): void {
 		subtask.classList.add('d_none');
 		editSubtask.classList.remove('d_none');
 	}

@@ -1,0 +1,7 @@
+<header>
+	<span>Kanban Project Management Tool</span>
+	<nav>
+		<a routerLink="/home/help" class="help_link"><img src="assets/img/help.svg" /></a>
+		<a class="user_menu_link"> {{ authService.currentUserSig()?.first_name![0].toUpperCase() }}{{ authService.currentUserSig()?.last_name![0].toUpperCase() }} </a>
+	</nav>
+</header>

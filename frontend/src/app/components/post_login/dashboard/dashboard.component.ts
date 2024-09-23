@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { DbService } from '../../../services/db/db.service';
-import { Task } from '../../../models/task.class';
+import { Task } from '../../../interfaces/task';
 import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
 	}
 
 	getTasks() {
-		this.dbService.getTasks().subscribe({
+		this.dbService.getTasksData().subscribe({
 			next: (tasks) => {
 				this.setCards(tasks as Task[]);
 				this.cdr.markForCheck();

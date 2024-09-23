@@ -1,0 +1,8 @@
+@import '../../../../styles.scss';
+
+.contacts_head {
+	@include dFlex($jc: flex-start);
+	gap: 30px;
+	height: 59px;
+	margin-bottom: 56px;
+}

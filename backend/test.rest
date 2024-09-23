@@ -1,39 +1,86 @@
-tokens = {"monti": "ffc328cd69e9e862b92737d8f06e05c091949aab", "simon": "47ce25e19ef2e2dfdad75dbd90dc1e454c83339b"}
+tokens = {"monti": "ffc328cd69e9e862b92737d8f06e05c091949aab", "simon": "47ce25e19ef2e2dfdad75dbd90dc1e454c83339b", "testuser": "4750c9456d4e0267ef1bd5b5723e22d23c27eb9a"}
 
 ###
 
-POST http://127.0.0.1:8000/signup/
+POST http://127.0.0.1:8000/api/signup/
 Content-Type: application/json
 
-{ "email": "test@mail.de", "password": "Si.K24111992", "first_name": "Test", "last_name": "user" }
+{ "email": "testuser@mail.de", "password": "Si.K24111992" }
 
 ###
 
-POST http://127.0.0.1:8000/login/
+POST http://127.0.0.1:8000/api/login/
 Content-Type: application/json
 
-{ "email": "test@mail.de", "password": "Si.K24111992" }
+{ "email": "simonkral92@gmail.com", "password": "Si.K24111992" }
 
 ###
 
 GET http://127.0.0.1:8000/test_token/
 Content-Type: application/json
-Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3
+Authorization: token 27c6c3cae463cafb82eb941bdfebb34027d19be9
 
 ###
 
-GET http://127.0.0.1:8000/tasks/
+GET http://127.0.0.1:8000/api/tasks/
 Content-Type: application/json
-Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3
+Authorization: token 27c6c3cae463cafb82eb941bdfebb34027d19be9
+
 
 ###
 
-GET http://127.0.0.1:8000/user/
+GET http://127.0.0.1:8000/api/tasks/1
 Content-Type: application/json
-Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3
+Authorization: token 27c6c3cae463cafb82eb941bdfebb34027d19be9
 
 ###
 
-GET http://127.0.0.1:8000/users/
+GET http://127.0.0.1:8000/api/contacts/
 Content-Type: application/json
-Authorization: token 0e1e2e5788f17138f5362532fb013ebb9a0a97f3
+Authorization: token 27c6c3cae463cafb82eb941bdfebb34027d19be9
+
+###
+
+GET http://127.0.0.1:8000/api/contacts/1
+Content-Type: application/json
+Authorization: token 27c6c3cae463cafb82eb941bdfebb34027d19be9
+
+###
+
+GET http://127.0.0.1:8000/api/user/
+Content-Type: application/json
+Authorization: token 27c6c3cae463cafb82eb941bdfebb34027d19be9
+
+###
+
+POST http://127.0.0.1:8000/api/tasks/
+Content-Type: application/json
+Authorization: token 27c6c3cae463cafb82eb941bdfebb34027d19be9
+
+{
+    "created_at": "2024-09-16",
+    "status": "todo",
+    "title": "Contact Form & Imprint",
+    "description": "Create a contact form and imprint page.",
+    "due_date": "2025-04-16",
+    "prio": 1,
+    "author": 1,
+    "category": "User Story",
+    "assigned_to": [
+      3,
+      5,
+      6
+    ],
+    "subtasks": []
+}
+
+
+###
+
+PATCH http://127.0.0.1:8000/api/tasks/16/
+Content-Type: application/json
+Authorization: token 4750c9456d4e0267ef1bd5b5723e22d23c27eb9a
+
+{
+    "status": "inProgress"
+}

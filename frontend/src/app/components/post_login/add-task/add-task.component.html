@@ -29,11 +29,11 @@
 					</div>
 					@if (assignedToDropdown) {
 					<ul class="dropdown zi2" (mousedown)="$event.preventDefault()">
-						@for (user of usersSig(); track user) {
-						<li class="user_list_item" [ngClass]="{ selected_user: userIsSelected(user) }" (click)="selectUser(user)">
+						@for (contact of dbService.contactsSig(); track contact) {
+						<li class="user_list_item" [ngClass]="{ selected_user: contactIsSelected(contact) }" (click)="selectContact(contact)">
 							<div class="list_item_name">
-								<div class="user_initials" [style]="getUserStyle(user)">{{ user.initials }}</div>
-								<span class="user_name">{{ user.first_name }} {{ user.last_name }}</span>
+								<div class="user_initials" [style]="{ 'background-color': contact.color }">{{ contact.initials }}</div>
+								<span class="user_name">{{ contact.first_name }} {{ contact.last_name }}</span>
 							</div>
 							<div class="list_item_checkbox"></div>
 						</li>
@@ -41,8 +41,8 @@
 					</ul>
 					}
 					<ul class="selected_users">
-						@for (user of assignedToList; track $index) {
-						<li class="user_initials" [style]="getUserStyle(user)">{{ user.initials }}</li>
+						@for (contact of assignedToList; track $index) {
+						<li class="user_initials" [style]="{ 'background-color': contact.color }">{{ contact.initials }}</li>
 						}
 					</ul>
 				</div>
@@ -95,7 +95,14 @@
 				<div class="form_element_wrap">
 					<h3>Subtasks</h3>
 					<div class="default_form_input">
-						<input type="text" placeholder="Subtasks" #addSubtaskInput (focus)="inputAddSubtask.classList.add('d_none'); inputIcons.classList.remove('d_none')" (blur)="inputAddSubtask.classList.remove('d_none'); inputIcons.classList.add('d_none')" />
+						<input
+							type="text"
+							placeholder="Subtasks"
+							#addSubtaskInput
+							(focus)="inputAddSubtask.classList.add('d_none'); inputIcons.classList.remove('d_none')"
+							(blur)="inputAddSubtask.classList.remove('d_none'); inputIcons.classList.add('d_none')"
+							(keyup.enter)="addSubtask(addSubtaskInput.value); addSubtaskInput.value = ''"
+						/>
 						<input class="d_none" data="subtaskList" formControlName="subtasks" />
 						<div class="edit_subtask_icons">
 							<div class="add_subtask" (click)="addSubtaskInput.focus()" #inputAddSubtask></div>
@@ -136,9 +143,9 @@
 		<div class="body_footer">
 			<div class="required_info"><span class="required">*</span><span>This field is required</span></div>
 			<div class="form_button_wrap">
-				<button class="button_white" type="button">Clear</button>
+				<button class="button_white" type="button"><span>Clear</span><img src="assets/img/cancel.png" /></button>
 				<!-- <button class="button_blue" type="submit">Create Task</button> -->
-				<button class="button_blue" type="submit" [disabled]="!addTaskForm.valid">Create Task</button>
+				<button class="button_blue" type="submit" [disabled]="!addTaskForm.valid"><span>Create Task</span><img src="assets/img/add_white.svg" /></button>
 			</div>
 		</div>
 	</form>

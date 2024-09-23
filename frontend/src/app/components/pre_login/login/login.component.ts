@@ -2,7 +2,6 @@ import { JsonPipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, Validators, ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-login',
@@ -13,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 	authService = inject(AuthService);
-	router = inject(Router);
 	passwordType: string = 'password';
 	passwordIcon: string = 'assets/img/lock.svg';
 	fb = inject(NonNullableFormBuilder);
@@ -45,12 +43,9 @@ export class LoginComponent {
 	}
 
 	onSubmit() {
-		console.log('submitted form', this.loginForm.value, this.loginForm.invalid);
 		this.authService.loginWithEmailAndPassword(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe({
 			next: (resp) => {
-				console.log(resp);
 				localStorage.setItem('token', resp.token);
-				this.router.navigateByUrl('/home');
 			},
 		});
 		this.loginForm.reset();

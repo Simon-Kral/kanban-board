@@ -15,16 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from kanbanapp.views import login, signup, current_user, contacts, tasks, test_token
+from rest_framework import routers
+
+from kanbanapp.views import LoginView, SignupView, CurrentUserView, ContactView, TaskView, SubtaskView, TestTokenView
+
+
+router = routers.DefaultRouter()
+router.register(r'contacts', ContactView, basename='Contact')
+router.register(r'tasks', TaskView, basename='Task')
+router.register(r'subtasks', SubtaskView, basename='Subtask')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/login/', login),
-    path('api/signup/', signup),
-    path('api/user/', current_user),
-    path('api/contacts/', contacts),
-    path('api/tasks/', tasks),
-    path('test_token/', test_token),
+    path('api/login/', LoginView.as_view()),
+    path('api/signup/', SignupView.as_view()),
+    path('api/user/', CurrentUserView.as_view()),
+    path('api/', include(router.urls)),
+    path('test_token/', TestTokenView.as_view()),
 ]

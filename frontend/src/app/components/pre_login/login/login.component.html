@@ -6,7 +6,7 @@
 	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 		<div class="form_element_wrap">
 			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(loginForm.controls.email) }">
-				<input type="email" placeholder="Email" formControlName="email" />
+				<input type="email" placeholder="Email" formControlName="email" autocomplete="off" />
 				<img src="assets/img/mail.svg" />
 			</div>
 			@if (formInvalid(loginForm.controls.email)) { @if (loginForm.controls.email.errors?.['required']) {
@@ -17,7 +17,7 @@
 		</div>
 		<div class="form_element_wrap">
 			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(loginForm.controls.password) }">
-				<input type="{{ passwordType }}" placeholder="Password" formControlName="password" (focus)="handlePasswordFieldFocus()" />
+				<input type="{{ passwordType }}" placeholder="Password" formControlName="password" (focus)="handlePasswordFieldFocus()" autocomplete="off" />
 				<img src="{{ passwordIcon }}" class="cursor_pointer" (click)="handlePasswordMasking()" />
 			</div>
 			@if (formInvalid(loginForm.controls.password)) { @if (loginForm.controls.password.errors?.['required']) {

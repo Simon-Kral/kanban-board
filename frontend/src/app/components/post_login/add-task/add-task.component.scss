@@ -142,20 +142,6 @@ input[type='date'] {
 	}
 }
 
-// .add_subtask {
-// 	position: absolute;
-// 	right: 18px;
-// 	top: calc(50% - 12px);
-// 	cursor: pointer;
-// 	z-index: 10;
-// 	width: 24px;
-// 	height: 24px;
-// 	background-image: url('../../../../assets/img/add.svg');
-// 	&:hover {
-// 		background-image: url('../../../../assets/img/add_hover.svg');
-// 	}
-// }
-
 .close_dropdown {
 	background-image: url('../../../../assets/img/arrow_dropdown_close.svg');
 	&:hover {
@@ -340,4 +326,8 @@ label {
 .body_footer {
 	@include dFlex($jc: space-between);
 	width: 966px;
+	.form_button_wrap {
+		gap: 16px;
+		@include dFlex();
+	}
 }

@@ -7,7 +7,7 @@
 	<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 		<div class="form_element_wrap">
 			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.name) }">
-				<input type="text" placeholder="Name" formControlName="name" (focus)="resetBackendErrors()" />
+				<input type="text" placeholder="Name" formControlName="name" (focus)="resetBackendErrors()" autocomplete="off" />
 				<img src="assets/img/person.svg" />
 			</div>
 			@if (formInvalid(signupForm.controls.name)) { @if (signupForm.controls.name.errors?.['required']) {
@@ -18,7 +18,7 @@
 		</div>
 		<div class="form_element_wrap">
 			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.email) }">
-				<input type="email" placeholder="Email" formControlName="email" (focus)="resetBackendErrors()" />
+				<input type="email" placeholder="Email" formControlName="email" (focus)="resetBackendErrors()" autocomplete="off" />
 				<img src="assets/img/mail.svg" />
 			</div>
 			@if (formInvalid(signupForm.controls.email)) { @if (signupForm.controls.email.errors?.['required']) {
@@ -29,7 +29,7 @@
 		</div>
 		<div class="form_element_wrap">
 			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.password) }">
-				<input type="{{ passwordType }}" placeholder="Password" formControlName="password" (focus)="handlePasswordFieldFocus()" />
+				<input type="{{ passwordType }}" placeholder="Password" formControlName="password" (focus)="handlePasswordFieldFocus()" autocomplete="off" />
 				<img src="{{ passwordIcon }}" class="cursor_pointer" (click)="handlePasswordMasking()" />
 			</div>
 			@if (formInvalid(signupForm.controls.password)) { @if (signupForm.controls.password.errors?.['required']) {
@@ -40,7 +40,7 @@
 		</div>
 		<div class="form_element_wrap">
 			<div class="default_form_input" [ngClass]="{ invalid: formInvalid(signupForm.controls.confirmPassword) }">
-				<input type="{{ passwordType }}" placeholder="Confirm Password" formControlName="confirmPassword" (focus)="handlePasswordFieldFocus()" />
+				<input type="{{ passwordType }}" placeholder="Confirm Password" formControlName="confirmPassword" (focus)="handlePasswordFieldFocus()" autocomplete="off" />
 				<img src="{{ passwordIcon }}" class="cursor_pointer" (click)="handlePasswordMasking()" />
 			</div>
 			@if (formInvalid(signupForm.controls.confirmPassword)) { @if (signupForm.controls.confirmPassword.errors?.['required']) {

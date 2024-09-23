@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, Validators, ReactiveFormsModule, NonNullableFormBuilder, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
-import { User } from '../../../models/user.class';
+import { User } from '../../../interfaces/user';
 
 export const passwordsMatchValidator = (password: AbstractControl): ValidatorFn => {
 	return (control: AbstractControl): ValidationErrors | null => {
@@ -70,7 +70,7 @@ export class SignupComponent {
 	}
 
 	onSubmit() {
-		const user = new User(this.signupForm.value);
+		const user = this.signupForm.value;
 		this.authService.signup(user).subscribe({
 			next: (resp) => {
 				if (resp.token && resp.user) {

@@ -2,7 +2,7 @@
 
 aside {
 	@include dFlex($fd: column, $jc: space-between);
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: $sidebar-width;
