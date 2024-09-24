@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { DbService } from '../../../services/db/db.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Task } from '../../../interfaces/task';
 import { NgClass } from '@angular/common';
 import { UtilityService } from '../../../services/utitily/utility.service';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({
 	selector: 'app-board',
@@ -45,6 +46,7 @@ export class BoardComponent implements OnInit {
 
 	openAddTask(status: string): void {
 		this.utilityService.taskStatus = status;
+		this.utilityService.embeddedComponentSig.set(AddTaskComponent);
 		this.utilityService.overlaySig.set(true);
 	}
 

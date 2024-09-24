@@ -1,7 +1,9 @@
 $bg-color: #f6f7f8;
+// $bg-color: black;
 $pale-blue: #2a3647;
 $pale-blue-hover: #2a3d59;
 $light-blue: #29abe2;
+$email_blue: #007cee;
 $dark-blue: #091931;
 $light-grey: #d1d1d1;
 $li-grey: #eeeeee;
@@ -106,15 +108,6 @@ h1 {
 
 h2 {
 	@include font($weight: 400, $size: 27px, $color: $pale-blue);
-}
-
-h3 {
-	@include font($weight: 400, $size: 20px, $color: $pale-blue);
-	margin-bottom: 8px;
-}
-
-h4 {
-	@include font($weight: 700, $size: 20px, $color: $pale-blue);
 }
 
 .required {

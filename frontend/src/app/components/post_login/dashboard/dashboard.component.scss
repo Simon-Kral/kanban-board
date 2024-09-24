@@ -7,6 +7,10 @@
 	padding: 21.5px 42.5px;
 }
 
+.page_wrap {
+	padding: 110px 0px 0px 96px;
+}
+
 .dashboard_head {
 	@include dFlex($jc: flex-start);
 	gap: 30px;
@@ -33,6 +37,18 @@
 		background-color: white;
 		border-radius: 30px;
 		box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+		cursor: pointer;
+		&:hover {
+			background-color: $pale-blue;
+			.card_information {
+				.amount {
+					@include font($size: 64px, $weight: 600, $color: white);
+				}
+				.description {
+					@include font($size: 20px, $color: white);
+				}
+			}
+		}
 		.card_information {
 			@include dFlex($fd: column);
 			.amount {
@@ -48,16 +64,57 @@
 		@include topRow();
 		grid-row: 1;
 		grid-column: 1 / 4;
+		&:hover {
+			.card_image {
+				background-image: url('../../../../assets/img/todo_white.svg');
+			}
+		}
+		.card_image {
+			width: 69px;
+			height: 69px;
+			object-fit: cover;
+			background-repeat: no-repeat;
+			background-image: url('../../../../assets/img/todo.svg');
+		}
 	}
 	.done {
 		@include topRow();
 		grid-row: 1;
 		grid-column: 4 / 7;
+		&:hover {
+			.card_image {
+				background-image: url('../../../../assets/img/done_white.svg');
+			}
+		}
+		.card_image {
+			width: 69px;
+			height: 69px;
+			object-fit: cover;
+			background-repeat: no-repeat;
+			background-image: url('../../../../assets/img/done.svg');
+		}
 	}
 	.urgent {
 		grid-row: 2;
 		grid-column: 1 / 7;
 		padding: 36px 56px;
+		&:hover {
+			.deadline {
+				.date {
+					@include font($size: 21px, $weight: 700, $color: white);
+				}
+				span {
+					color: white;
+				}
+			}
+		}
+		.card_image {
+			width: 69px;
+			height: 69px;
+			object-fit: cover;
+			background-repeat: no-repeat;
+			background-image: url('../../../../assets/img/urgent.svg');
+		}
 		.deadline {
 			@include dFlex($fd: column, $ai: flex-start);
 			gap: 12px;

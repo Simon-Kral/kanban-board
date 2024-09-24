@@ -1,31 +1,33 @@
-<section class="dashboard_head">
-	<h1>Join 360</h1>
-	<div class="separator_vert_light_blue"></div>
-	<h2>Key Metrics at a Glance</h2>
-</section>
-<section class="dashboard_body">
-	<div class="information_cards">
-		@for (card of cardsSig(); track card) {
-		<div class="{{ card.name }} card">
-			@if ($index <= 2) {
-			<img src="assets/img/{{ card.name }}.svg" />
-			}
-			<div class="card_information">
-				<span class="amount">{{ card.amount }}</span>
-				<span class="description">{{ card.description }}</span>
-			</div>
-			@if (card.name === 'urgent') {
-			<div class="separator_vert_light_grey"></div>
-			<div class="deadline">
-				<span class="date">{{ mostUrgentDate }}</span>
-				<span>Upcoming Deadline</span>
+<div class="page_wrap">
+	<section class="dashboard_head">
+		<h1>Join 360</h1>
+		<div class="separator_vert_light_blue"></div>
+		<h2>Key Metrics at a Glance</h2>
+	</section>
+	<section class="dashboard_body">
+		<div class="information_cards">
+			@for (card of dbService.summaryDataSig(); track $index) {
+			<div class="{{ card.name }} card" routerLink="/home/board">
+				@if ($index <= 2) {
+				<div class="card_image"></div>
+				}
+				<div class="card_information">
+					<span class="amount">{{ card.amount }}</span>
+					<span class="description">{{ card.description }}</span>
+				</div>
+				@if (card.name === 'urgent') {
+				<div class="separator_vert_light_grey"></div>
+				<div class="deadline">
+					<span class="date">{{ card.date }}</span>
+					<span>Upcoming Deadline</span>
+				</div>
+				}
 			</div>
 			}
 		</div>
-		}
-	</div>
-	<div class="greeting">
-		<span>Good morning,</span>
-		<span>{{ authService.currentUserSig()?.first_name }} {{ authService.currentUserSig()?.last_name }}</span>
-	</div>
-</section>
+		<div class="greeting">
+			<span>Good morning,</span>
+			<span>{{ authService.currentUserSig()?.first_name }} {{ authService.currentUserSig()?.last_name }}</span>
+		</div>
+	</section>
+</div>

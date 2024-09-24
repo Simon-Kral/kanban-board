@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
 		this.dbService.getTasksData().subscribe({
 			next: (tasks) => {
 				this.dbService.tasksSig.set(tasks);
-				// this.searchForm.controls.search.setValue('');
+				this.dbService.setSummarySigData();
 			},
 		});
 	}
@@ -67,10 +67,12 @@ export class AppComponent implements OnInit {
 		this.dbService.getContactsData().subscribe({
 			next: (contacts) => {
 				this.dbService.contactsSig.set([]);
+				let contactList: Contact[] = [];
 				contacts.forEach((contactData) => {
 					const newContact = new Contact(contactData);
-					this.dbService.contactsSig.update((prevContacts) => [...prevContacts, newContact]);
+					contactList.push(newContact);
 				});
+				this.dbService.contactsSig.set(contactList.sort((a, b) => a.first_name.localeCompare(b.first_name)));
 			},
 		});
 	}

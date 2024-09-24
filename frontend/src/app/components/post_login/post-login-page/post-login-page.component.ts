@@ -4,11 +4,12 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { UtilityService } from '../../../services/utitily/utility.service';
 import { NgComponentOutlet } from '@angular/common';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({
 	selector: 'app-pre-login-page',
 	standalone: true,
-	imports: [PostHeaderComponent, SidebarComponent, RouterOutlet, NgComponentOutlet],
+	imports: [PostHeaderComponent, SidebarComponent, RouterOutlet, NgComponentOutlet, AddTaskComponent],
 	templateUrl: './post-login-page.component.html',
 	styleUrl: './post-login-page.component.scss',
 })

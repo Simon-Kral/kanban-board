@@ -8,6 +8,16 @@
 	@include buttonWhite();
 }
 
+h3 {
+	@include font($weight: 400, $size: 20px, $color: $pale-blue);
+	margin-bottom: 8px;
+}
+
+.page_wrap {
+	padding: 110px 0px 0px 96px;
+	transition: padding 0ms;
+}
+
 .add_task_head {
 	margin-bottom: 56px;
 	width: 966px;

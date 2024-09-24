@@ -23,8 +23,63 @@ export class DbService {
 	visibleTasksSig = computed(() => {
 		return this.tasksSig().filter((task) => this.taskIncludesSearchValue(task));
 	});
+	summaryDataSig = signal<any[]>([
+		{ name: 'todo', amount: 0, description: 'To-Do' },
+		{ name: 'done', amount: 0, description: 'Done' },
+		{ name: 'urgent', amount: 0, description: 'Urgent', date: 'January 01, 1970' },
+		{ name: 'board', amount: 0, description: 'Tasks in Board' },
+		{ name: 'progress', amount: 0, description: 'Tasks In Progress' },
+		{ name: 'feedback', amount: 0, description: 'Awaiting Feedback' },
+	]);
+
+	months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	constructor() {}
+
+	setSummarySigData() {
+		const data = [
+			{ name: 'todo', amount: this.countInTasks('status', 'todo'), description: 'To-Do' },
+			{ name: 'done', amount: this.countInTasks('status', 'done'), description: 'Done' },
+			{ name: 'urgent', amount: this.countInTasks('prio', 1), description: 'Urgent', date: this.getMostUrgentDate() },
+			{ name: 'board', amount: this.tasksSig().length, description: 'Tasks in Board' },
+			{ name: 'progress', amount: this.countInTasks('status', 'inProgress'), description: 'Tasks In Progress' },
+			{ name: 'feedback', amount: this.countInTasks('status', 'awaitFeedback'), description: 'Awaiting Feedback' },
+		];
+		this.summaryDataSig.set(data);
+	}
+
+	getMostUrgentDate() {
+		const task = this.getMostUrgentTask();
+		return this.formatDate(task.due_date);
+	}
+
+	getMostUrgentTask() {
+		const urgentTasks: Task[] = [];
+		this.tasksSig().forEach((task) => {
+			task.prio === 3 && task.status != 'done' ? urgentTasks.push(task) : '';
+		});
+		urgentTasks.sort((a, b) => {
+			var aa = a.due_date.replace('-', ''),
+				bb = b.due_date.replace('-', '');
+			return aa < bb ? -1 : aa > bb ? 1 : 0;
+		});
+		return urgentTasks[0];
+	}
+
+	formatDate(date: string) {
+		let [year, month, day] = date.split('-');
+		return `${this.months[Number(month) - 1]} ${day}, ${year}`;
+	}
+
+	countInTasks(key: keyof Task, value: any) {
+		let counter = 0;
+		this.tasksSig().forEach((task) => {
+			if (task[key] === value) {
+				key != 'prio' ? counter++ : task.status != 'done' ? counter++ : '';
+			}
+		});
+		return counter;
+	}
 
 	taskIncludesSearchValue(task: Task): boolean {
 		return task.title.toLowerCase().includes(this.searchValueSig()!.toLowerCase()) || task.description.toLowerCase().includes(this.searchValueSig()!.toLowerCase());

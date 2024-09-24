@@ -1,8 +1,55 @@
-<section class="contacts_sidebar">
-	<button>Ass new contact</button>
-</section>
-<section class="contacts_head">
-	<h1>Contacts</h1>
-	<div class="separator_vert_light_blue"></div>
-	<h2>Better with a team</h2>
-</section>
+<div class="page_wrap">
+	<section class="contacts_sidebar">
+		<div class="button_wrap">
+			<button class="button_blue" (click)="openAddContact()"><span>Add new contact</span><img src="assets/img/person_add.svg" /></button>
+		</div>
+		<div class="contact_list">
+			@for (contact of dbService.contactsSig(); track $index) { @if (separatorIsNeeded($index)) {
+			<div class="contacts_separator">
+				<h3>{{ contact.first_name[0] }}</h3>
+				<div class="separator_hor_light_grey"></div>
+			</div>
+			}
+			<div class="contact" (click)="selectContact(contact)">
+				<span class="user_initials" [style]="{ 'background-color': dbService.getContactParameterById(contact.id, 'color') }">{{ dbService.getContactParameterById(contact.id, 'initials') }}</span>
+				<div class="contact_info">
+					<span class="contact_name">{{ contact.first_name }} {{ contact.last_name }}</span>
+					<span class="contact_email">{{ contact.email }}</span>
+				</div>
+			</div>
+			}
+		</div>
+	</section>
+	<section class="contact_details">
+		<div class="contact_details_head">
+			<h1>Contacts</h1>
+			<div class="separator_vert_light_blue"></div>
+			<h2>Better with a team</h2>
+		</div>
+		@if (utilityService.selectedContactSig()) {
+		<div class="contact_details_body">
+			<div class="contact_description">
+				<span class="user_initials_big" [style]="{ 'background-color': dbService.getContactParameterById(utilityService.selectedContactSig()!.id, 'color') }">{{ dbService.getContactParameterById(utilityService.selectedContactSig()!.id, 'initials') }}</span>
+				<div>
+					<h4>{{ utilityService.selectedContactSig()!.first_name }} {{ utilityService.selectedContactSig()!.last_name }}</h4>
+					<div class="contact_options">
+						<div class="contact_option" (click)="openEditContact()"><img src="assets/img/edit.png" /><span>Edit</span></div>
+						<div class="contact_option"><img src="assets/img/delete.png" /><span>Delete</span></div>
+					</div>
+				</div>
+			</div>
+			<span class="contact_information_header">Contact Information</span>
+			<div class="contact_information">
+				<div class="contact_info_box">
+					<span class="contact_information_subheader">Email</span>
+					<a class="contact_email" href="mailto:{{ utilityService.selectedContactSig()!.email }}">{{ utilityService.selectedContactSig()!.email }}</a>
+				</div>
+				<div class="contact_info_box">
+					<span class="contact_information_subheader">Phone</span>
+					<a class="contact_phone" href="tel:{{ utilityService.selectedContactSig()!.phone }}">{{ utilityService.selectedContactSig()!.phone }}</a>
+				</div>
+			</div>
+		</div>
+		}
+	</section>
+</div>

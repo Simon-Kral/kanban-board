@@ -4,11 +4,19 @@
 	@include buttonBlue();
 }
 
+.page_wrap {
+	padding: 80px 0px 0px 64px;
+}
+
 .bg_blue {
 	background-color: #0038ff;
 }
 .bg_lightblue {
 	background-color: #1fd7c1;
+}
+
+h3 {
+	@include font($weight: 700, $size: 20px, $color: $pale-blue);
 }
 
 .board_head {
