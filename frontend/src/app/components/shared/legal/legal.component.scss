@@ -1,0 +1,40 @@
+@import '../../../../styles.scss';
+
+.page_wrap {
+	@include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
+	gap: 24px;
+	padding: 64px 64px 64px 64px;
+	height: calc(100vh - $header-height);
+	overflow-y: auto;
+	// responsive
+	@include break(xl) {
+		padding: 40px 64px 40px 64px;
+	}
+	@include break(xs) {
+		height: calc(100vh - $header-height - 80px);
+	}
+	@include break(xxs) {
+		padding: 48px 16px 48px 16px;
+	}
+}
+
+.legal_head {
+	@include dFlex($jc: space-between);
+	width: 100%;
+}
+
+h1 {
+	// responsive
+	@include break(xxs) {
+		@include font($color: black, $size: 32px, $weight: 700);
+	}
+}
+
+p {
+	margin-top: 16px;
+}
+
+a {
+	color: $email_blue;
+	text-decoration: none;
+}

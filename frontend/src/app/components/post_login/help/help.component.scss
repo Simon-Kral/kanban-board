@@ -1,0 +1,60 @@
+@import '../../../../styles.scss';
+
+.page_wrap {
+	@include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
+	gap: 24px;
+	padding: 64px 64px 64px 64px;
+	height: calc(100vh - $header-height);
+	overflow-y: auto;
+	// responsive
+	@include break(xl) {
+		padding: 40px 64px 40px 64px;
+	}
+	@include break(xs) {
+		height: calc(100vh - $header-height - 80px);
+	}
+	@include break(xxs) {
+		padding: 48px 16px 48px 16px;
+	}
+}
+.help_head {
+	@include dFlex($jc: space-between);
+	width: 100%;
+}
+
+h1 {
+	// responsive
+	@include break(xxs) {
+		@include font($color: black, $size: 32px, $weight: 700);
+	}
+}
+
+h2 {
+	@include font($color: black, $size: 27px, $weight: 700);
+}
+
+h3 {
+	@include font($color: black, $size: 20px, $weight: 700);
+}
+
+article {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 16px;
+}
+
+a {
+	color: $email_blue;
+	text-decoration: none;
+}
+
+.list_item {
+	@include dFlex($ai: flex-start);
+	.marker {
+		@include font($color: black, $size: 27px, $weight: 700);
+		margin-right: 35px;
+	}
+}
+
+.enjoy {
+	margin-top: 64px;
+}

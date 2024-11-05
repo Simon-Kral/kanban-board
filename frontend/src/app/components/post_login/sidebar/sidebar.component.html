@@ -1,0 +1,19 @@
+<aside>
+	<section class="sidebar_top">
+		<img src="assets/img/logo_inverted.svg" class="logo" />
+		@if (authService.currentUserSig()){
+		<nav>
+			<a [routerLink]="['/home/summary']" [routerLinkActive]="['active_link']"><img src="assets/img/summary.svg" /><span>Summary</span></a>
+			<a [routerLink]="['/home/add-task']" [routerLinkActive]="['active_link']"><img src="assets/img/add_task.svg" /><span>Add Task</span></a>
+			<a [routerLink]="['/home/board']" [routerLinkActive]="['active_link']"><img src="assets/img/board.svg" /><span>Board</span></a>
+			<a [routerLink]="['/home/contacts']" [routerLinkActive]="['active_link']"><img src="assets/img/contacts.svg" /><span>Contacts</span></a>
+		</nav>
+		}
+	</section>
+	<section class="sidebar_bottom">
+		<nav class="legals_nav">
+			<a [routerLink]="['/home/privacy']" [routerLinkActive]="['active_link']" (click)="utilityService.storeUrl(router.url)">Privacy Policy</a>
+			<a [routerLink]="['/home/legal']" [routerLinkActive]="['active_link']" (click)="utilityService.storeUrl(router.url)">Legal Notice</a>
+		</nav>
+	</section>
+</aside>

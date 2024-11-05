@@ -1,0 +1,235 @@
+@import '../../../../styles.scss';
+
+.button_blue {
+	@include buttonBlue();
+}
+
+.button_white {
+	@include buttonWhite();
+}
+
+h3 {
+	@include font($weight: 400, $size: 20px, $color: $pale-blue);
+	margin-bottom: 8px;
+	@include break(sm) {
+		@include font($weight: 400, $size: 16px, $color: $pale-blue);
+	}
+}
+
+.close_button {
+	position: absolute;
+	top: 64px;
+	right: 40px;
+	width: 24px;
+	height: 24px;
+	background-image: url('../../../../assets/img/close.svg');
+	cursor: pointer;
+	&:hover {
+		background-image: url('../../../../assets/img/close_hover.svg');
+	}
+	@include break(sm) {
+		top: 32px;
+		right: 32px;
+	}
+}
+
+.page_wrap {
+	@include dFlex($fd: column, $jc: flex-start, $ai: flex-start);
+	padding: 110px 0px 0px 96px;
+	transition: padding 0ms;
+	height: 100%;
+	// responsive
+	@include break(xl) {
+		padding: 48px 16px 0px 64px;
+	}
+	@include break(xxs) {
+		padding: 48px 16px 0px 16px;
+	}
+}
+
+.embedded_wrap {
+	padding: 64px 74px;
+	transition: padding 0ms;
+	height: calc(100dvh - 32px);
+	max-height: 951.5px;
+	overflow: hidden;
+	@include break(sm) {
+		padding: 32px 37px;
+	}
+	@include break(xxs) {
+		width: calc(100vw - 16px);
+		padding: 32px 8px;
+	}
+}
+
+.add_task_head {
+	margin-bottom: 26px;
+}
+
+.add_task_body {
+	height: calc(100% - 100px);
+	max-width: 966px;
+	form {
+		@include dFlex($fd: column, $jc: space-between, $ai: flex-start);
+		height: 100%;
+		gap: 59px;
+		.form_body {
+			@include dFlex($jc: flex-start, $ai: flex-start);
+		}
+	}
+	// responsive
+	@include break(md1) {
+		width: 448px;
+		max-width: none;
+		form {
+			gap: 0px;
+			.form_body {
+				@include dFlex($fd: column, $jc: flex-start);
+				max-height: calc(100% - 120px);
+				padding: 16px 16px 16px 0px;
+				border-bottom: 1px solid $light-grey;
+				border-top: 1px solid $light-grey;
+				overflow-y: scroll;
+			}
+		}
+	}
+	@include break(sm) {
+		width: 100%;
+		form {
+			.form_body {
+				width: 100%;
+			}
+		}
+	}
+	@include break(xs) {
+		form {
+			.form_body {
+				padding-right: 8px;
+			}
+		}
+	}
+}
+
+.form_footer {
+	@include dFlex($jc: space-between);
+	width: 966px;
+	z-index: 20;
+	.form_button_wrap {
+		gap: 16px;
+		@include dFlex();
+	}
+	// responsive
+	@include break(md1) {
+		@include dFlex($jc: flex-end);
+		width: 100%;
+		padding: 16px 6px 16px 0px;
+		.required_info {
+			display: none;
+		}
+	}
+	@include break(sm) {
+		padding-right: 14px;
+	}
+	@include break(xs) {
+		bottom: 80px;
+	}
+}
+
+.form_elements {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 10px;
+	width: 440px;
+	// responsive
+	@include break(md1) {
+		width: 448px;
+		margin-bottom: 22px;
+	}
+	@include break(sm) {
+		width: 100%;
+		left: 0;
+	}
+}
+
+.separator_big {
+	@include separator($width: 2px, $height: 424px, $color: $light-grey);
+	// responsive
+	@include break(md1) {
+		display: none;
+	}
+}
+
+.separator {
+	@include separator($width: 1px, $height: 100%, $color: $light-grey);
+}
+
+.form_element {
+	@include formElement();
+	// responsive
+	@include break(sm) {
+		width: 100%;
+	}
+}
+
+.input_element {
+	@include inputElement();
+	// responsive
+	@include break(sm) {
+		width: 100%;
+	}
+}
+
+.input_img {
+	@include inputImg();
+}
+
+.input_images {
+	@include inputImages();
+}
+
+.input_element_black {
+	@include inputElement($ph-color: black);
+	// responsive
+	@include break(sm) {
+		width: 100%;
+	}
+}
+
+.textarea_element {
+	@include textareaElement();
+	// responsive
+	@include break(sm) {
+		width: 100%;
+		textarea {
+			width: 100%;
+		}
+	}
+}
+
+.contact_initials {
+	@include contactInitials();
+}
+
+.dropdown {
+	@include dropdown();
+	// responsive
+	@include break(sm) {
+		width: 100%;
+	}
+}
+
+.selected_contact_list {
+	@include selectedContactList();
+}
+
+.select_prio_buttons_element {
+	@include selectPrioButtonsElement();
+	// responsive
+	@include break(sm) {
+		justify-content: space-around;
+		width: 100%;
+	}
+}
+
+.subtask_list {
+	@include subtaskList();
+}

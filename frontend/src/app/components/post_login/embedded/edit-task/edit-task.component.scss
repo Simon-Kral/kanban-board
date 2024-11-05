@@ -1,0 +1,165 @@
+@import '../../../../../styles.scss';
+
+.button_blue {
+	@include buttonBlue();
+}
+
+h3 {
+	@include font($weight: 400, $size: 20px, $color: $pale-blue);
+	margin-bottom: 8px;
+	// responsive
+	@include break(sm) {
+		@include font($weight: 400, $size: 16px, $color: $pale-blue);
+	}
+}
+
+.embedded_wrap {
+	padding: 48px 32px;
+	width: calc(100vw - 32px);
+	height: calc(100dvh - 32px);
+	max-width: 664px;
+	max-height: 996px;
+	// responsive
+	@include break(xs) {
+		padding: 32px 21px;
+		max-width: 664px;
+		max-height: 896px;
+	}
+	@include break(xxs) {
+		width: calc(100vw - 16px);
+	}
+}
+
+.card_head {
+	@include dFlex($jc: flex-end, $ai: flex-start);
+	width: 100%;
+	margin-bottom: 24px;
+	.task_category {
+		@include font($size: 23px, $color: white);
+		padding: 4px 16px;
+		border-radius: 8px;
+		@include break(xs) {
+			@include font($size: 14px, $color: white);
+		}
+	}
+	.close_button {
+		width: 32px;
+		height: 32px;
+		background-image: url('../../../../../assets/img/close.svg');
+		background-position: center;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		&:hover {
+			background-image: url('../../../../../assets/img/close_hover.svg');
+		}
+		// responsive
+		@include break(xs) {
+			top: 36px;
+			right: 28px;
+		}
+	}
+}
+
+.card_body {
+	height: calc(100% - 32px - 24px);
+}
+
+.form_footer {
+	@include dFlex($jc: flex-end);
+	width: 100%;
+	gap: 32px;
+	.form_button_wrap {
+		gap: 16px;
+		@include dFlex();
+	}
+}
+
+form {
+	height: 100%;
+	.form_body {
+		height: calc(100% - 19.5px - 56px);
+		width: calc(100% - 8px);
+		overflow-y: auto;
+	}
+	// responsive
+	@include break(sm) {
+		.form_body {
+			height: calc(100% - 19.5px - 48px);
+		}
+	}
+}
+
+.form_elements {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 10px;
+	padding-right: 8px;
+}
+
+.separator {
+	@include separator($width: 1px, $height: 100%, $color: $light-grey);
+}
+
+.form_element {
+	@include formElement();
+	// responsive
+	@include break(xs) {
+		width: 100%;
+	}
+}
+
+.pRel {
+	position: relative;
+}
+
+.input_element {
+	@include inputElement();
+	// responsive
+	@include break(xs) {
+		width: 100%;
+	}
+}
+
+.input_img {
+	@include inputImg();
+}
+
+.input_images {
+	@include inputImages();
+}
+
+.input_element_black {
+	@include inputElement($ph-color: black);
+	// responsive
+	@include break(xs) {
+		width: 100%;
+	}
+}
+
+.textarea_element {
+	@include textareaElement();
+	// responsive
+	@include break(xs) {
+		width: 100%;
+	}
+}
+
+.contact_initials {
+	@include contactInitials();
+}
+
+.dropdown {
+	@include dropdown();
+}
+
+.selected_contact_list {
+	@include selectedContactList();
+}
+
+.select_prio_buttons_element {
+	@include selectPrioButtonsElement();
+	padding-left: 4px;
+}
+
+.subtask_list {
+	@include subtaskList();
+}

@@ -1,0 +1,87 @@
+@import '../../../../styles.scss';
+
+aside {
+	@include dFlex($fd: column, $jc: space-between);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: $sidebar-width;
+	height: 100vh;
+	padding: 64px 0;
+	background-color: $pale-blue;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+	z-index: 70;
+	.sidebar_top {
+		@include dFlex($fd: column);
+		gap: 114px;
+		width: 100%;
+		nav {
+			@include dFlex($fd: column, $ai: flex-start);
+			gap: 16px;
+			width: 100%;
+			a {
+				@include dFlex($jc: flex-start);
+				gap: 8px;
+				width: 100%;
+				padding: 8px 0px 8px 56px;
+				text-decoration: none;
+				cursor: pointer;
+				&:hover {
+					background-color: $pale-blue-hover;
+				}
+				span {
+					@include font($color: white);
+				}
+			}
+		}
+	}
+	.sidebar_bottom {
+		@include dFlex($jc: flex-start);
+		width: 100%;
+		.legals_nav {
+			@include dFlex($fd: column);
+			gap: 8px;
+			width: 100%;
+			a {
+				padding: 8px 0px 8px 56px;
+				width: 100%;
+			}
+		}
+	}
+	// responsive
+	@include break(xs) {
+		top: auto;
+		bottom: 0;
+		width: 100%;
+		height: 80px;
+		padding: 0;
+		.sidebar_top {
+			height: 100%;
+			.logo {
+				display: none;
+			}
+			nav {
+				@include dFlex($fd: row, $jc: space-around);
+				height: 100%;
+				a {
+					@include dFlex($fd: column);
+					gap: 4px;
+					width: 80px;
+					height: 76px;
+					padding: 0;
+					border-radius: 16px;
+					span {
+						@include font($size: 14px, $color: white);
+					}
+				}
+			}
+		}
+		.sidebar_bottom {
+			display: none;
+		}
+	}
+}
+
+.active_link {
+	background-color: $dark-blue !important;
+}

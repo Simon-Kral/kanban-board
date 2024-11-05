@@ -1,0 +1,57 @@
+@import '../../../../styles.scss';
+
+.page_wrap {
+	@include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
+	gap: 24px;
+	padding: 64px 64px 64px 64px;
+	height: calc(100vh - $header-height);
+	overflow-y: auto;
+	// responsive
+	@include break(xl) {
+		padding: 40px 64px 40px 64px;
+	}
+	@include break(xs) {
+		height: calc(100vh - $header-height - 80px);
+	}
+	@include break(xxs) {
+		padding: 48px 16px 48px 16px;
+	}
+}
+
+.privacy_head {
+	@include dFlex($jc: space-between);
+	width: 100%;
+	.back_arrow_help {
+		cursor: pointer;
+	}
+}
+
+h1 {
+	// responsive
+	@include break(xxs) {
+		@include font($color: black, $size: 32px, $weight: 700);
+	}
+}
+
+h2 {
+	@include font($color: black, $size: 27px, $weight: 700);
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+h3 {
+	@include font($color: black, $size: 20px, $weight: 700);
+	margin-top: 12px;
+	margin-bottom: 6px;
+}
+
+h4 {
+	@include font($color: black, $size: 16px, $weight: 700);
+	margin-top: 12px;
+	margin-bottom: 6px;
+}
+
+a {
+	color: $email_blue;
+	text-decoration: none;
+}

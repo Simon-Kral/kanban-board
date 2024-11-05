@@ -1,0 +1,86 @@
+<div class="page_wrap">
+	<section class="contacts_sidebar" [ngStyle]="{ display: utilityService.smallScreenView && !utilityService.contactsSidebarActive ? 'none' : 'flex' }">
+		<div class="button_wrap" [ngStyle]="{ display: utilityService.smallScreenView ? 'none' : 'flex' }">
+			<button class="button_blue" (click)="openAddContact()"><span>Add new contact</span><img src="assets/img/person_add.svg" /></button>
+		</div>
+		<div class="contact_list">
+			@for (contact of dbService.contactsSig(); track $index) { @if (separatorIsNeeded($index)) {
+			<div class="contacts_separator">
+				<h3>{{ contact.first_name[0] }}</h3>
+				<div class="separator"></div>
+			</div>
+			}
+			<div class="contact" (click)="openContact(contact)">
+				<span class="contact_initials" [style]="{ 'background-color': utilityService.getContactParamById(contact.id!, 'color') }">{{ utilityService.getContactParamById(contact.id!, 'initials') }}</span>
+				<div class="contact_info">
+					<span class="contact_name"
+						>{{ contact.first_name }} {{ contact.last_name }}
+						@if (contact.email === authService.currentUserSig()?.email) { (You) }
+					</span>
+					<span class="contact_email">{{ contact.email }}</span>
+				</div>
+			</div>
+			}
+		</div>
+	</section>
+	<section class="contact_details" [ngStyle]="{ display: utilityService.smallScreenView && !utilityService.contactsDetailsActive ? 'none' : 'block' }">
+		<div class="contact_details_head">
+			<div class="head_content">
+				<h1>Contacts</h1>
+				<div class="separator_blue_vert"></div>
+				<h2>Better with a team</h2>
+				<div class="separator_blue_hor"></div>
+			</div>
+			<a class="back_arrow" (click)="closeContact()"><img src="assets/img/back_arrow.svg" /></a>
+		</div>
+		@if (utilityService.dataSig()) {
+		<div class="contact_details_body">
+			<div class="contact_description">
+				<span class="contact_initials_big" [style]="{ 'background-color': utilityService.dataSig().color }">{{ utilityService.dataSig().initials }}</span>
+				<div class="contact_description_head">
+					<h4>{{ utilityService.dataSig().first_name }} {{ utilityService.dataSig().last_name }}</h4>
+					<div class="contact_options" [ngStyle]="{ display: utilityService.smallScreenView ? 'none' : 'flex' }">
+						<div class="contact_option" (click)="openEditContact()"><img src="assets/img/edit.png" /><span>Edit</span></div>
+						<div class="contact_option" (click)="deleteContact()"><img src="assets/img/delete.png" /><span>Delete</span></div>
+						<div class="spinner_container">
+							@if (utilityService.loading) {
+							<img src="assets/img/spinner_pale_blue.gif" class="loading_spinner" />
+							}
+						</div>
+					</div>
+					<div class="backend_errors">
+						@for (error of dbService.backendErrorsSig(); track $index) {
+						<span class="backend_error">{{ error }}</span
+						><br />
+						}
+					</div>
+				</div>
+			</div>
+			<span class="contact_information_header">Contact Information</span>
+			<div class="contact_information">
+				<div class="contact_info_box">
+					<span class="contact_information_subheader">Email</span>
+					<a class="contact_email" href="mailto:{{ utilityService.dataSig().email }}">{{ utilityService.dataSig().email }}</a>
+				</div>
+				<div class="contact_info_box">
+					<span class="contact_information_subheader">Phone</span>
+					<a class="contact_phone" href="tel:{{ utilityService.dataSig().phone }}">{{ utilityService.dataSig().phone }}</a>
+				</div>
+			</div>
+		</div>
+		}
+	</section>
+</div>
+<div class="menu_overlay" [ngStyle]="{ display: utilityService.smallScreenView && utilityService.contactOptionsMenu ? 'flex' : 'none' }" (click)="closeOptionsMenu()"></div>
+<div class="menu">
+	<div class="contact_options_menu" [ngStyle]="{ display: utilityService.contactOptionsMenu ? 'flex' : 'none' }">
+		<a class="contact_option" (click)="openEditContact()"><img src="assets/img/edit.png" /><span>Edit</span></a>
+		<a class="contact_option" (click)="deleteContact()"><img src="assets/img/delete.png" /><span>Delete</span></a>
+	</div>
+	@if (utilityService.smallScreenView && utilityService.contactsDetailsActive ) {
+
+	<button class="mobile_button" (click)="toggleOptionsMenu()"><img src="assets/img/more_vert.svg" /></button>
+	} @else if (utilityService.smallScreenView && utilityService.contactsSidebarActive ) {
+	<button class="mobile_button" (click)="openAddContact()"><img src="assets/img/person_add.svg" /></button>
+	}
+</div>

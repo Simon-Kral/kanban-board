@@ -1,0 +1,317 @@
+@import '../../../../styles.scss';
+
+h3 {
+	@include font($weight: 400, $size: 20px, $color: black);
+	@include dFlex($jc: flex-start);
+	height: 58px;
+	margin-left: 36px;
+}
+
+h4 {
+	@include font($weight: 500, $size: 47px, $color: black);
+	// responsive
+	@include break(md2) {
+		@include font($weight: 500, $size: 36px, $color: black);
+	}
+}
+
+.button_wrap {
+	@include dFlex();
+	position: sticky;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: white;
+	padding: 22.5px 0px;
+	.button_blue {
+		@include buttonBlue();
+	}
+}
+
+.page_wrap {
+	@include dFlex($jc: flex-start, $ai: flex-start);
+	position: relative;
+}
+
+.contacts_separator {
+	width: 100%;
+	.separator {
+		@include separator($width: 100%, $height: 2px, $color: $light-grey);
+		margin: 8px 0px;
+	}
+}
+
+.separator_blue_vert {
+	@include separator($width: 3px, $height: 59px, $color: $light-blue);
+	// responsive
+	@include break(md2) {
+		display: none;
+	}
+}
+
+.separator_blue_hor {
+	display: none;
+	// responsive
+	@include break(md2) {
+		@include separator($width: 90px, $height: 3px, $color: $light-blue);
+		display: block;
+		margin-top: 8px;
+	}
+}
+
+.contacts_sidebar {
+	@include dFlex($fd: column, $jc: flex-start);
+	position: relative;
+	width: 456px;
+	min-width: 456px;
+	height: calc(100vh - $header-height);
+	padding: 0px 28px 32px 52px;
+	background-color: white;
+	box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
+	overflow-y: scroll;
+	.contact_list {
+		@include dFlex($fd: column);
+		width: 100%;
+	}
+	// responsive
+	@include break(md1) {
+		width: 380px;
+		min-width: 380px;
+		padding: 0px 11px 32px 24px;
+	}
+	@include break(sm) {
+		width: 100%;
+		min-width: auto;
+	}
+	@include break(xs) {
+		height: calc(100dvh - $header-height - 80px);
+	}
+}
+
+.contact {
+	@include dFlex($jc: flex-start);
+	gap: 32px;
+	width: 100%;
+	height: 78px;
+	padding-left: 24px;
+	border-radius: 10px;
+	cursor: pointer;
+	&:hover {
+		background-image: linear-gradient(#f9f9f9, #f0f0f0);
+	}
+	.contact_info {
+		@include dFlex($fd: column, $ai: flex-start);
+		gap: 5px;
+		.contact_name {
+			@include font($size: 20px, $color: black);
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: normal;
+			line-clamp: 1;
+			overflow-wrap: break-word;
+			max-width: 272px;
+
+			// responsive
+			@include break(md1) {
+				max-width: 241px;
+			}
+			@include break(sm) {
+				max-width: 100%;
+			}
+		}
+		.contact_email {
+			@include font($color: $email_blue);
+		}
+	}
+}
+
+.contact_initials {
+	@include contactInitials();
+	margin-bottom: 6px;
+}
+
+.contact_details {
+	padding: 110px 0px 0px 96px;
+	width: 100%;
+	// responsive
+	@include break(xl) {
+		padding: 40px 0px 0px 64px;
+	}
+	@include break(xxs) {
+		padding: 48px 0px 0px 16px;
+	}
+}
+
+.contact_details_head {
+	@include dFlex($jc: space-between, $ai: flex-start);
+	width: 100%;
+	padding-right: 16px;
+	.head_content {
+		@include dFlex($jc: flex-start);
+		gap: 30px;
+		margin-bottom: 56px;
+	}
+	.back_arrow {
+		display: none;
+	}
+	// responsive
+	@include break(md2) {
+		.head_content {
+			@include dFlex($fd: column, $ai: flex-start);
+			gap: 8px;
+		}
+	}
+	@include break(sm) {
+		.back_arrow {
+			display: block;
+		}
+	}
+}
+
+.contact_details_body {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 21px;
+}
+
+.contact_description {
+	@include dFlex();
+	gap: 54px;
+	.contact_description_head {
+		@include dFlex($fd: column, $ai: flex-start);
+		margin-bottom: -22px;
+		.contact_options {
+			@include dFlex($jc: flex-start);
+			gap: 16px;
+			.contact_option {
+				@include dFlex();
+				gap: 8px;
+				cursor: pointer;
+				span {
+					@include font($color: $pale-blue);
+				}
+				img {
+					width: 24px;
+					filter: invert(16%) sepia(16%) saturate(1125%) hue-rotate(175deg) brightness(101%) contrast(89%);
+					object-fit: cover;
+				}
+				&:hover {
+					span {
+						@include font($color: $light-blue);
+					}
+					img {
+						filter: invert(54%) sepia(78%) saturate(862%) hue-rotate(165deg) brightness(94%) contrast(87%);
+					}
+				}
+			}
+		}
+	}
+	// responsive
+	@include break(md2) {
+		gap: 20px;
+	}
+}
+
+.contact_initials_big {
+	@include contactInitials($fs: 47px, $fw: 500, $wh: 120px, $bs: 3px);
+	min-width: 120px;
+	// responsive
+	@include break(md2) {
+		@include contactInitials($fs: 27px, $fw: 500, $wh: 80px, $bs: 3px);
+		min-width: 80px;
+	}
+}
+
+.contact_information_header {
+	@include dFlex($jc: flex-start);
+	@include font($size: 20px, $color: black);
+	height: 74px;
+}
+
+.contact_information {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 24px;
+	.contact_info_box {
+		@include dFlex($fd: column, $ai: flex-start);
+		gap: 16px;
+		.contact_information_subheader {
+			@include font($weight: 700, $color: black);
+		}
+		.contact_email {
+			@include font($color: $email_blue);
+			text-decoration: none;
+		}
+		.contact_phone {
+			@include font($color: black);
+			text-decoration: none;
+		}
+	}
+}
+
+.menu_overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.menu {
+	.contact_options_menu {
+		@include dFlex($fd: column, $ai: flex-start);
+		width: 120px;
+		position: absolute;
+		bottom: 104px;
+		right: 16px;
+		padding: 10px;
+		background-color: $pale-blue;
+		border-radius: 20px 20px 0px 20px;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		z-index: 80;
+		animation: fadeIn 200ms;
+		a {
+			@include dFlex($jc: flex-start);
+			@include font($color: $disabled);
+			gap: 8px;
+			width: 100%;
+			text-align: start;
+			padding: 8px;
+			border-radius: 16px;
+			text-decoration: none;
+			cursor: pointer;
+			&:hover {
+				background-color: $pale-blue-hover;
+			}
+		}
+		img {
+			filter: invert(79%) sepia(11%) saturate(0%) hue-rotate(178deg) brightness(98%) contrast(102%);
+		}
+	}
+	.mobile_button {
+		position: absolute;
+		bottom: 32px;
+		right: 16px;
+		display: block;
+		width: 56px;
+		height: 56px;
+		border-radius: 112px;
+		background-color: $pale-blue;
+		border: none;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		cursor: pointer;
+		&:hover {
+			background-color: $light-blue;
+		}
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

@@ -1,0 +1,214 @@
+@import '../../../../../styles.scss';
+
+.embedded_wrap {
+	padding: 48px 32px;
+	width: calc(100vw - 32px);
+	height: calc(100dvh - 32px);
+	max-width: 664px;
+	max-height: 996px;
+	// responsive
+	@include break(xs) {
+		padding: 32px 21px;
+		max-width: 664px;
+		max-height: 896px;
+	}
+	@include break(xxs) {
+		width: calc(100vw - 16px);
+	}
+}
+
+.card_head {
+	@include dFlex($jc: space-between, $ai: flex-start);
+	width: 100%;
+	margin-bottom: 24px;
+	.task_category {
+		@include font($size: 23px, $color: white);
+		padding: 4px 16px;
+		border-radius: 8px;
+		@include break(xs) {
+			@include font($size: 14px, $color: white);
+		}
+	}
+	.close_button {
+		width: 32px;
+		height: 32px;
+		background-image: url('../../../../../assets/img/close.svg');
+		background-position: center;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		&:hover {
+			background-image: url('../../../../../assets/img/close_hover.svg');
+		}
+		// responsive
+		@include break(xs) {
+			top: 36px;
+			right: 28px;
+		}
+	}
+}
+
+.card_body {
+	height: calc(100% - 36px - 24px);
+	@include break(xs) {
+		height: calc(100% - 32px - 24px);
+	}
+}
+
+.task_data {
+	@include dFlex($fd: column, $ai: flex-start, $jc: flex-start);
+	gap: 24px;
+	height: calc(100% - 19.5px - 56px);
+	width: calc(100% - 8px);
+	padding-right: 8px;
+	overflow-y: auto;
+	h1 {
+		max-width: 100%;
+		overflow-wrap: break-word;
+		@include break(xs) {
+			@include font($size: 32px, $weight: 700);
+		}
+	}
+	span:not(.contact_initials) {
+		max-width: 100%;
+		overflow-wrap: break-word;
+		// responsive
+		@include break(xs) {
+			font-size: 14px;
+		}
+	}
+	// responsive
+	@include break(md2) {
+		height: calc(100% - 19.5px - 32px);
+	}
+}
+
+.urgent {
+	filter: invert(32%) sepia(41%) saturate(6581%) hue-rotate(2deg) brightness(102%) contrast(105%);
+}
+.medium {
+	filter: invert(69%) sepia(8%) saturate(6400%) hue-rotate(358deg) brightness(100%) contrast(105%);
+}
+.low {
+	filter: invert(82%) sepia(98%) saturate(2202%) hue-rotate(32deg) brightness(97%) contrast(83%);
+}
+
+.assigned_to_users {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 4px;
+	.contact {
+		@include dFlex();
+		padding: 8px 0px 8px 24px;
+		gap: 16px;
+	}
+}
+
+.contact_initials {
+	@include contactInitials();
+	margin-left: -10px;
+}
+
+.subtasks {
+	max-width: 100%;
+	.subtask {
+		@include checkboxElement();
+		@include dFlex($jc: flex-start, $ai: flex-start);
+		gap: 4px;
+		max-width: 100%;
+		min-height: 32px;
+		padding: 4px 0px 0px 20px;
+		span {
+			max-width: calc(100% - 36px) !important;
+		}
+	}
+}
+
+.task_options {
+	@include dFlex($jc: flex-end);
+	gap: 16px;
+	width: 100%;
+	.task_option {
+		@include dFlex();
+		gap: 8px;
+		cursor: pointer;
+		span {
+			@include font($color: $pale-blue);
+		}
+		img {
+			width: 24px;
+			filter: invert(16%) sepia(18%) saturate(1157%) hue-rotate(175deg) brightness(97%) contrast(85%);
+			object-fit: cover;
+		}
+		&:hover {
+			span {
+				@include font($color: $light-blue);
+			}
+			img {
+				filter: invert(54%) sepia(78%) saturate(862%) hue-rotate(165deg) brightness(94%) contrast(87%);
+			}
+		}
+	}
+	@include break(xs) {
+		gap: 8px;
+		.task_option {
+			gap: 4px;
+			span {
+				@include font($size: 14px, $color: $pale-blue);
+			}
+			&:hover {
+				span {
+					@include font($size: 14px, $color: $light-blue);
+				}
+			}
+		}
+	}
+}
+
+.separator {
+	@include separator($width: 1px, $height: 24px, $color: $light-grey);
+}
+
+.menu_overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.menu {
+	position: relative;
+	.move_menu {
+		@include dFlex($fd: column, $ai: flex-start);
+		width: 164px;
+		position: absolute;
+		top: -216px;
+		left: 0px;
+		padding: 10px;
+		background-color: $pale-blue;
+		border-radius: 20px 20px 20px 0px;
+		box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+		z-index: 80;
+		animation: fadeIn 200ms;
+		a {
+			@include font($color: $disabled);
+			width: 100%;
+			text-align: start;
+			padding: 13.5px 0px 13.5px 16px;
+			border-radius: 16px;
+			text-decoration: none;
+			cursor: pointer;
+			&:hover {
+				background-color: $pale-blue-hover;
+			}
+		}
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

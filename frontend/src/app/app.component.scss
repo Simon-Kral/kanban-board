@@ -1,0 +1,38 @@
+@import '../styles.scss';
+
+.notification {
+	display: none;
+	position: absolute;
+	top: calc($header-height + 32px);
+	right: 32px;
+	z-index: 100;
+	padding: 25px;
+	border-radius: 20px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+	background-color: $pale-blue;
+	animation: fadeInOut 3s;
+	span {
+		@include font($size: 20px, $color: white);
+	}
+}
+
+@keyframes fadeInOut {
+	0%,
+	30%,
+	70%,
+	100% {
+		opacity: 0;
+	}
+
+	30% {
+		opacity: 1;
+	}
+
+	70% {
+		opacity: 1;
+	}
+
+	0% {
+		opacity: 0;
+	}
+}

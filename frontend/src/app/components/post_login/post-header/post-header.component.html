@@ -1,0 +1,15 @@
+<header>
+	<img src="assets/img/logo.svg" class="logo show_mobile" />
+	<span class="title">Kanban Project Management Tool</span>
+	@if (authService.currentUserSig()){
+	<nav>
+		<a [routerLink]="['/home/help']" class="help_link" (click)="utilityService.storeUrl(router.url)"><img src="assets/img/help.svg" /></a>
+		<a class="user_menu_link" (click)="toggleUserMenu()"> {{ authService.currentUserSig()?.first_name![0].toUpperCase() }}{{ authService.currentUserSig()?.last_name![0].toUpperCase() }} </a>
+	</nav>
+	}
+	<div class="user_menu" [ngStyle]="{ display: utilityService.userMenu ? 'flex' : 'none' }">
+		<a [routerLink]="['/home/legal']">Legal Notice</a>
+		<a [routerLink]="['/home/privacy']">Privacy Policy</a>
+		<a (click)="authService.logout()">Log out</a>
+	</div>
+</header>

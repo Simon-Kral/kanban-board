@@ -1,0 +1,157 @@
+<div class="embedded_wrap">
+	<div class="card_head">
+		<div class="close_button" (click)="utilityService.hideOverlay(true)"></div>
+	</div>
+	<div class="card_body">
+		<form [formGroup]="editTaskForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()" autocomplete="off">
+			<div class="form_body">
+				<div class="form_elements">
+					<div class="form_element">
+						<h3>Title</h3>
+						<div class="input_element" [ngClass]="{ invalid: utilityService.formInvalid(editTaskForm.controls.title) }">
+							<input type="text" placeholder="Enter a Title" formControlName="title" />
+						</div>
+						<div class="element_errors">
+							@if (utilityService.formInvalid(editTaskForm.controls.title)) { @if (editTaskForm.controls.title.errors?.['required']) {
+							<span class="error_message">This field is required</span>
+							}}
+						</div>
+					</div>
+					<div class="form_element mb22">
+						<h3>Description</h3>
+						<div class="textarea_element">
+							<textarea type="text" placeholder="Enter a Description" formControlName="description"></textarea>
+						</div>
+					</div>
+					<div class="form_element">
+						<h3>Due Date</h3>
+						<div class="input_element" [ngClass]="{ invalid: utilityService.formInvalid(editTaskForm.controls.dueDate) }">
+							<input type="text" placeholder="dd/mm/yyyy" formControlName="dueDate" />
+							<input type="date" formControlName="datePicker" (change)="transferDate()" min="{{ today }}" />
+						</div>
+						<div class="element_errors">
+							@if (utilityService.formInvalid(editTaskForm.controls.dueDate)) { @if (editTaskForm.controls.dueDate.errors?.['required']) {
+							<span class="error_message">This field is required</span>
+							}@else if (editTaskForm.controls.dueDate.errors?.['pattern']) {
+							<span class="error_message">Enter a valid date in the correct format.</span>
+							}@else if (editTaskForm.controls.dueDate.errors?.['dateInPast']) {
+							<span class="error_message">{{editTaskForm.controls.dueDate.errors?.['dateInPast']}}</span>
+							}}
+						</div>
+					</div>
+					<div class="form_element">
+						<h3>Prio</h3>
+						<div class="select_prio_buttons_element">
+							<input class="d_none" type="number" formControlName="prio" />
+							<label class="urgent" (click)="setPrio(1)" [ngClass]="{ selected_prio: prioIsSelected(1) }"><span>Urgent</span><img src="assets/img/prio_urgent.png" /></label>
+							<label class="medium" (click)="setPrio(2)" [ngClass]="{ selected_prio: prioIsSelected(2) }"><span>Medium</span><img src="assets/img/prio_medium.png" /></label>
+							<label class="low" (click)="setPrio(3)" [ngClass]="{ selected_prio: prioIsSelected(3) }"><span>Low</span><img src="assets/img/prio_low.png" /></label>
+						</div>
+					</div>
+					<div class="form_element pRel zi8">
+						<h3>Assigned To</h3>
+						<div class="input_element_black mb8 zi8">
+							<input type="text" placeholder="Select contacts to assign" (focus)="onFocus('assignedTo', assignedToDropdownImg)" (blur)="onBlur('assignedTo', assignedToDropdownImg)" #searchAssignedTo (keyup)="changeSearchValue($event)" />
+							<input class="d_none" data="assignedToList" formControlName="assignedTo" />
+							<div class="input_img functional" (mousedown)="$event.preventDefault()" (click)="assignedToDropdown ? searchAssignedTo.blur() : searchAssignedTo.focus()">
+								<img src="assets/img/arrow_dropdown.svg" #assignedToDropdownImg />
+							</div>
+						</div>
+						@if (assignedToDropdown) {
+						<ul class="dropdown" (mousedown)="$event.preventDefault()">
+							@for (contact of visibleContactsSig(); track contact) {
+							<li class="contact_list_item" [ngClass]="{ selected_contact: contactIsSelected(contact) }" (click)="selectContact(contact)">
+								<div class="contact">
+									<div class="contact_initials" [style]="{ 'background-color': contact.color }">{{ contact.initials }}</div>
+									<span class="contact_name">{{ contact.first_name }} {{ contact.last_name }}</span>
+								</div>
+								<div class="list_item_checkbox"></div>
+							</li>
+							}
+						</ul>
+						}
+						<ul class="selected_contact_list">
+							@for (contact of assignedToList; track $index) {
+							<li class="contact_initials" [style]="{ 'background-color': contact.color }">{{ contact.initials }}</li>
+							}
+						</ul>
+					</div>
+					<div class="form_element">
+						<h3>Subtasks</h3>
+						<div class="input_element mb8">
+							<input
+								type="text"
+								placeholder="Add new subtask"
+								#addSubtaskInput
+								(focus)="inputAddSubtask.classList.add('d_none'); inputIcons.classList.remove('d_none')"
+								(blur)="inputAddSubtask.classList.remove('d_none'); inputIcons.classList.add('d_none')"
+								(keyup.enter)="addSubtask(addSubtaskInput.value); addSubtaskInput.value = ''"
+							/>
+							<input class="d_none" data="subtaskList" formControlName="subtasks" />
+							<div #inputAddSubtask class="input_img functional" (click)="addSubtaskInput.focus()">
+								<img src="assets/img/add.svg" />
+							</div>
+							<div #inputIcons class="input_images functional d_none">
+								<div class="input_img functional" (mousedown)="addSubtaskInput.value = ''">
+									<img src="assets/img/close.svg" />
+								</div>
+								<div class="separator"></div>
+								<div class="input_img functional" (click)="addSubtask(addSubtaskInput.value); addSubtaskInput.value = ''" (mousedown)="$event.preventDefault()">
+									<img src="assets/img/check.svg" />
+								</div>
+							</div>
+						</div>
+						<ul class="subtask_list">
+							@for (subtask of this.data.subtasks; track $index) {
+							<div class="subtask_element" (dblclick)="openSubtask(subtaskElement, subtaskItem, editSubtask)" #subtaskElement>
+								<div class="subtask" #subtaskItem>
+									<li class="subtask_list_item">
+										<span class="subtask_title">{{ subtask.title }}</span>
+									</li>
+									<div class="input_images functional">
+										<div class="input_img" (click)="openSubtask(subtaskElement, subtaskItem, editSubtask)">
+											<img src="assets/img/edit.svg" />
+										</div>
+										<div class="separator"></div>
+										<div class="input_img functional" (click)="deleteSubtask($index)">
+											<img src="assets/img/delete.svg" />
+										</div>
+									</div>
+								</div>
+								<div class="edit_subtask d_none" #editSubtask>
+									<input class="edit_subtask_input" type="text" value="{{ subtask.title }}" (keyup.enter)="confirmSubtask(subtaskElement, $index, editSubtaskInput, subtaskItem, editSubtask)" #editSubtaskInput />
+									<div class="input_images">
+										<div class="input_img functional" (click)="deleteSubtask($index)">
+											<img src="assets/img/delete.svg" />
+										</div>
+										<div class="separator"></div>
+										<div class="input_img functional" (click)="confirmSubtask(subtaskElement, $index, editSubtaskInput, subtaskItem, editSubtask)">
+											<img src="assets/img/check.svg" />
+										</div>
+									</div>
+								</div>
+							</div>
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="backend_errors">
+				@for (error of dbService.backendErrorsSig(); track $index) {
+				<span class="backend_error">{{ error }}</span
+				><br />
+				}
+			</div>
+			<div class="form_footer">
+				<div class="spinner_container">
+					@if (utilityService.loading) {
+					<img src="assets/img/spinner_pale_blue.gif" class="loading_spinner" />
+					}
+				</div>
+				<div class="form_button_wrap">
+					<button class="button_blue" type="submit" [disabled]="!editTaskForm.valid || utilityService.loading"><span>OK</span><img src="assets/img/check_white.svg" /></button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

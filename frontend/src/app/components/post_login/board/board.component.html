@@ -1,0 +1,97 @@
+<div class="page_wrap">
+	<section class="board_head">
+		<div class="head_info">
+			<h1>Board</h1>
+			<nav>
+				<div class="spinner_container">
+					@if (utilityService.loading) {
+					<img src="assets/img/spinner_pale_blue.gif" class="loading_spinner" />
+					}
+				</div>
+				<div class="form_element hide_mobile">
+					<div class="input_element" [ngClass]="{ invalid: noTasksFound() }">
+						<input type="text" placeholder="Find Task" (keyup)="changeSearchValue($event)" />
+						<div class="input_images">
+							<div class="separator"></div>
+							<div class="input_img">
+								<img src="assets/img/search.svg" />
+							</div>
+						</div>
+					</div>
+					<div class="element_errors">
+						@if (noTasksFound()) {
+						<span class="error_message">No tasks found</span>
+						}
+					</div>
+				</div>
+				<button class="button_blue" (click)="openAddTask('todo')"><span>Add Task</span><img src="assets/img/add_white.svg" /></button>
+			</nav>
+		</div>
+		<div class="form_element show_mobile">
+			<div class="input_element" [ngClass]="{ invalid: noTasksFound() }">
+				<input type="text" placeholder="Find Task" (keyup)="changeSearchValue($event)" />
+				<div class="input_images">
+					<div class="separator"></div>
+					<div class="input_img">
+						<img src="assets/img/search.svg" />
+					</div>
+				</div>
+			</div>
+			<div class="element_errors">
+				@if (noTasksFound()) {
+				<span class="error_message">No tasks found</span>
+				}
+			</div>
+		</div>
+	</section>
+	<div class="backend_errors">
+		@for (error of dbService.backendErrorsSig(); track $index) {
+		<span class="backend_error">{{ error }}</span
+		><br />
+		}
+	</div>
+	<section class="board_body">
+		@for (column of [{name: 'To do', status: 'todo'}, {name: 'In progress', status: 'inProgress'}, {name: 'Await feedback', status: 'awaitFeedback'}, {name: 'Done', status: 'done'}]; track $index) {
+		<div class="task_column">
+			<div class="column_head">
+				<h3>{{ column.name }}</h3>
+				@if (column.name != 'Done') {
+				<div class="plus_button" (click)="openAddTask(column.status)"></div>
+				}
+			</div>
+			<div class="column_body" (drop)="onDrop(column.status, moveHere)" (dragover)="onDragOver($event, moveHere)" (dragleave)="onDragLeave($event, moveHere)">
+				@if (noTasksForColumn(column.status)) {
+				<span class="blank_task">No tasks {{ column.name }}</span>
+				} @for (task of visibleTasksSig(); track $index) { @if(task.status === column.status) {
+				<div class="task_card" draggable="true" (dragstart)="onDragStart(task)" (click)="openTask(task)">
+					<div class="category_section">
+						<span class="task_category" [style]="utilityService.getCategoryStyle(task.category)">{{ task.category }}</span>
+					</div>
+					<div class="text_section">
+						<span class="task_title">{{ task.title }}</span>
+						<span class="task_description">{{ task.description }}</span>
+					</div>
+					@if (task.subtasks!.length > 0) {
+					<div class="subtask_section">
+						<progress value="{{ getFinishedSubtasksAmount(task.subtasks!) }}" max="{{ getSubtasksAmount(task.subtasks!) }}"></progress>
+						<span class="subtasks_text">{{ getFinishedSubtasksAmount(task.subtasks!) }}/{{ getSubtasksAmount(task.subtasks!) }} Subtasks</span>
+					</div>
+					}
+					<div class="additional_info_section">
+						<div class="assigned_to_users">
+							@for (uid of task.assigned_to; track $index) { @if ($index < 5) {
+							<span class="contact_initials" [style]="{ 'background-color': utilityService.getContactParamById(uid, 'color') }">{{ utilityService.getContactParamById(uid, 'initials') }}</span>
+							} } @if (task.assigned_to.length > 5) {
+							<span class="contact_initials" [style]="{ 'background-color': '#a8a8a8' }">+{{ task.assigned_to.length - 5 }}</span>
+							}
+						</div>
+						<img class="{{ utilityService.getPrioStrFromNr(task.prio) }}" src="assets/img/prio_{{ utilityService.getPrioStrFromNr(task.prio) }}.png" />
+					</div>
+				</div>
+				} }
+				<span #moveHere class="blank_task transparent" (dragover)="onDragOver($event, moveHere)">Move task here</span>
+			</div>
+		</div>
+		}
+	</section>
+</div>

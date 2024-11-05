@@ -1,0 +1,27 @@
+@import './../../../../styles.scss';
+
+footer {
+	@include dFlex($fd: column, $jc: flex-end);
+	gap: 42px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	padding-bottom: 48px;
+	.signup_box {
+		display: none;
+	}
+	// responsive
+	@include break(sm) {
+		padding-bottom: 22px;
+		.signup_box {
+			@include dFlex();
+			gap: 16px;
+			.button_blue {
+				@include buttonBlue();
+			}
+		}
+	}
+	nav {
+		width: 246px;
+	}
+}

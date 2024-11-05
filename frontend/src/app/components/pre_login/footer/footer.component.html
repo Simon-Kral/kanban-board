@@ -1,0 +1,12 @@
+<footer>
+	@if (this.router.url === "/login") {
+	<div class="signup_box">
+		<span>Not a Join user?</span>
+		<a [routerLink]="['/signup']" class="button_blue">Sign up</a>
+	</div>
+	}
+	<nav class="legals_nav">
+		<a [routerLink]="['/home/privacy']">Privacy Policy</a>
+		<a [routerLink]="['/home/legal']">Legal Notice</a>
+	</nav>
+</footer>

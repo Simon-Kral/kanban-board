@@ -1,0 +1,146 @@
+@import '../../../../../styles.scss';
+
+.separator {
+	@include separator($width: 90px, $height: 3px, $color: $light-blue);
+	// responsive
+	@include break(md1) {
+		margin-top: 8px;
+	}
+}
+
+.embedded_wrap {
+	@include dFlex($jc: space-between, $ai: flex-start);
+	width: 1212px;
+	height: 592px;
+	// responsive
+	@include break(md1) {
+		@include dFlex($fd: column, $jc: flex-start, $ai: flex-start);
+		width: calc(100vw - 32px);
+		height: calc(100dvh - 32px);
+		max-width: 396px;
+		max-height: 760px;
+	}
+}
+
+.close_button {
+	position: absolute;
+	top: 52px;
+	right: 52px;
+	width: 24px;
+	height: 24px;
+	background-image: url('../../../../../assets/img/close.svg');
+	cursor: pointer;
+	&:hover {
+		background-image: url('../../../../../assets/img/close_hover.svg');
+	}
+	// responsive
+	@include break(md1) {
+		background-image: url('../../../../../assets/img/close_white.svg');
+		top: 28px;
+		right: 20px;
+	}
+}
+
+.card_head {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 16px;
+	padding: 0px 16px 0px 46px;
+	background-color: $pale-blue;
+	border-radius: 30px 0px 0px 30px;
+	width: 467px;
+	height: 100%;
+	img {
+		position: absolute;
+		top: calc(154px - 67px / 2);
+	}
+	// responsive
+	@include break(md1) {
+		width: calc(100vw - 32px);
+		height: 352px;
+		max-width: 396px;
+		border-radius: 30px 30px 0px 0px;
+		padding-left: 24px;
+		gap: 8px;
+		img {
+			display: none;
+		}
+	}
+}
+
+.form_element {
+	@include formElement();
+}
+
+.input_element {
+	@include inputElement();
+}
+
+.input_img {
+	@include inputImg();
+}
+
+h3 {
+	@include font($size: 61px, $weight: 700, $color: white);
+	// responsive
+	@include break(md1) {
+		@include font($size: 47px, $weight: 700, $color: white);
+	}
+}
+
+.card_body {
+	@include dFlex();
+	gap: 72px;
+	width: 662px;
+	height: 100%;
+	padding-right: 32px;
+	// responsive
+	@include break(md1) {
+		@include dFlex($fd: column, $jc: flex-start);
+		gap: 32px;
+		width: 100%;
+		height: auto;
+		padding-right: 0px;
+	}
+}
+
+form {
+	@include dFlex($fd: column, $ai: flex-start);
+	gap: 12px;
+	width: 100%;
+	padding: 0px 16px;
+	.form_body {
+		width: 100%;
+	}
+}
+
+.form_footer {
+	@include dFlex();
+	gap: 32px;
+	margin-top: 16px;
+
+	// responsive
+	@include break(md1) {
+		gap: 16px;
+		width: 100%;
+		padding-left: 48px;
+		margin-top: 0px;
+		margin-bottom: 28px;
+	}
+}
+
+.contact_initials_big {
+	@include contactInitials($fs: 47px, $fw: 500, $wh: 120px, $bs: 3px);
+	margin-top: -96px;
+	// responsive
+	@include break(md1) {
+		margin-top: -60px;
+	}
+}
+
+.button_blue {
+	@include buttonBlue();
+}
+
+.button_white {
+	@include buttonWhite();
+}

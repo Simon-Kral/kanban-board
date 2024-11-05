@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kanban_app.api package &mdash; Kanban-Board 2024 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6fefd858"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="kanban_board package" href="kanban_board.html" />
+    <link rel="prev" title="kanban_app.migrations package" href="kanban_app.migrations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Kanban-Board
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">backend</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kanban_app.html">Kanban-App</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kanban_app.api.forms">kanban_app.api.forms module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.forms.CustomUserChangeForm"><code class="docutils literal notranslate"><span class="pre">CustomUserChangeForm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.forms.CustomUserCreationForm"><code class="docutils literal notranslate"><span class="pre">CustomUserCreationForm</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kanban_app.api.managers">kanban_app.api.managers module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.managers.CustomUserManager"><code class="docutils literal notranslate"><span class="pre">CustomUserManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kanban_app.api.serializers">kanban_app.api.serializers module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.serializers.ContactSerializer"><code class="docutils literal notranslate"><span class="pre">ContactSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.serializers.SubtaskSerializer"><code class="docutils literal notranslate"><span class="pre">SubtaskSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.serializers.TaskSerializer"><code class="docutils literal notranslate"><span class="pre">TaskSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.serializers.UserSerializer"><code class="docutils literal notranslate"><span class="pre">UserSerializer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kanban_app.api.urls">kanban_app.api.urls module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kanban_app.api.views">kanban_app.api.views module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.ContactViewSet"><code class="docutils literal notranslate"><span class="pre">ContactViewSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.LoginView"><code class="docutils literal notranslate"><span class="pre">LoginView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.SignupView"><code class="docutils literal notranslate"><span class="pre">SignupView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.SubtaskViewSet"><code class="docutils literal notranslate"><span class="pre">SubtaskViewSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.TaskViewSet"><code class="docutils literal notranslate"><span class="pre">TaskViewSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.current_user_view"><code class="docutils literal notranslate"><span class="pre">current_user_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.guest_user_view"><code class="docutils literal notranslate"><span class="pre">guest_user_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kanban_app.api.views.summary_view"><code class="docutils literal notranslate"><span class="pre">summary_view()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kanban_app.api">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kanban_board.html">Kanban-Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage.html">Django manage file</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Kanban-Board</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">backend</a></li>
+      <li class="breadcrumb-item active">kanban_app.api package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/kanban_app.api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="kanban-app-api-package">
+<h1>kanban_app.api package<a class="headerlink" href="#kanban-app-api-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-kanban_app.api.forms">
+<span id="kanban-app-api-forms-module"></span><h2>kanban_app.api.forms module<a class="headerlink" href="#module-kanban_app.api.forms" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserChangeForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.forms.</span></span><span class="sig-name descname"><span class="pre">CustomUserChangeForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.forms.CustomUserChangeForm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserChangeForm</span></code></p>
+<p>Form for updating an existing user’s information, extending Django’s UserChangeForm.
+Uses CustomUser as the model and includes only the ‘email’ field for updates.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserChangeForm.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#kanban_app.api.forms.CustomUserChangeForm.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserChangeForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('email',)</span></em><a class="headerlink" href="#kanban_app.api.forms.CustomUserChangeForm.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserChangeForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#kanban_app.api.forms.CustomUserChangeForm.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="kanban_app.html#kanban_app.models.CustomUser" title="kanban_app.models.CustomUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUser</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserChangeForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'email':</span> <span class="pre">&lt;django.forms.fields.EmailField</span> <span class="pre">object&gt;,</span> <span class="pre">'password':</span> <span class="pre">&lt;django.contrib.auth.forms.ReadOnlyPasswordHashField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#kanban_app.api.forms.CustomUserChangeForm.base_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserChangeForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'password':</span> <span class="pre">&lt;django.contrib.auth.forms.ReadOnlyPasswordHashField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#kanban_app.api.forms.CustomUserChangeForm.declared_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserChangeForm.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#kanban_app.api.forms.CustomUserChangeForm.media" title="Link to this definition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserCreationForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.forms.</span></span><span class="sig-name descname"><span class="pre">CustomUserCreationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.forms.CustomUserCreationForm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserCreationForm</span></code></p>
+<p>Form for creating a new user, extending Django’s UserCreationForm.
+Uses CustomUser as the model and includes only the ‘email’ field.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserCreationForm.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#kanban_app.api.forms.CustomUserCreationForm.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserCreationForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('email',)</span></em><a class="headerlink" href="#kanban_app.api.forms.CustomUserCreationForm.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserCreationForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#kanban_app.api.forms.CustomUserCreationForm.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="kanban_app.html#kanban_app.models.CustomUser" title="kanban_app.models.CustomUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUser</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserCreationForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'email':</span> <span class="pre">&lt;django.forms.fields.EmailField</span> <span class="pre">object&gt;,</span> <span class="pre">'password1':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'password2':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#kanban_app.api.forms.CustomUserCreationForm.base_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserCreationForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'password1':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'password2':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#kanban_app.api.forms.CustomUserCreationForm.declared_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="kanban_app.api.forms.CustomUserCreationForm.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#kanban_app.api.forms.CustomUserCreationForm.media" title="Link to this definition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-kanban_app.api.managers">
+<span id="kanban-app-api-managers-module"></span><h2>kanban_app.api.managers module<a class="headerlink" href="#module-kanban_app.api.managers" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.managers.CustomUserManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.managers.</span></span><span class="sig-name descname"><span class="pre">CustomUserManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.managers.CustomUserManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseUserManager</span></code></p>
+<p>Custom user manager with validation for creating both user and superuser instances.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="kanban_app.api.managers.CustomUserManager.create_superuser">
+<span class="sig-name descname"><span class="pre">create_superuser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_fields</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.managers.CustomUserManager.create_superuser" title="Link to this definition"></a></dt>
+<dd><p>Creates and saves a superuser with the given email and password, ensuring necessary permissions.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>email (str): The email of the superuser.
+password (str): The password for the superuser.
+**extra_fields: Additional fields for the superuser model.</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If required permissions (is_staff, is_superuser) are not set.</p>
+</dd>
+<dt>Returns:</dt><dd><p>CustomUser: A superuser instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kanban_app.api.managers.CustomUserManager.create_user">
+<span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_fields</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.managers.CustomUserManager.create_user" title="Link to this definition"></a></dt>
+<dd><p>Creates and saves a regular user with the given email and password.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>email (str): The email of the user.
+password (str): The password for the user.
+**extra_fields: Additional fields for the user model.</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If the email is not provided.</p>
+</dd>
+<dt>Returns:</dt><dd><p>CustomUser: A user instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-kanban_app.api.serializers">
+<span id="kanban-app-api-serializers-module"></span><h2>kanban_app.api.serializers module<a class="headerlink" href="#module-kanban_app.api.serializers" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.ContactSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.serializers.</span></span><span class="sig-name descname"><span class="pre">ContactSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.serializers.ContactSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serializer for the Contact model.
+Serializes all fields in the Contact model and includes a unique constraint on
+the combination of ‘email’ and ‘author’ fields to ensure unique contacts per user.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.ContactSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#kanban_app.api.serializers.ContactSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.ContactSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></em><a class="headerlink" href="#kanban_app.api.serializers.ContactSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.ContactSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#kanban_app.api.serializers.ContactSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="kanban_app.html#kanban_app.models.Contact" title="kanban_app.models.Contact"><code class="xref py py-class docutils literal notranslate"><span class="pre">Contact</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.ContactSerializer.Meta.validators">
+<span class="sig-name descname"><span class="pre">validators</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;UniqueTogetherValidator(queryset=&lt;QuerySet</span> <span class="pre">[&lt;Contact:</span> <span class="pre">max&#64;mail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">sofiam&#64;gmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">antom&#64;gmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">schulz&#64;hotmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">benedikt&#64;gmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">davidberg&#64;gmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">eva&#64;gmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">emmanuelma&#64;gmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">bauer&#64;gmail.com&gt;,</span> <span class="pre">&lt;Contact:</span> <span class="pre">wolf&#64;gmail.com&gt;]&gt;,</span> <span class="pre">fields=('email',</span> <span class="pre">'author'))&gt;]</span></em><a class="headerlink" href="#kanban_app.api.serializers.ContactSerializer.Meta.validators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.SubtaskSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.serializers.</span></span><span class="sig-name descname"><span class="pre">SubtaskSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.serializers.SubtaskSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serializer for the Subtask model.
+Serializes all fields in the Subtask model.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.SubtaskSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#kanban_app.api.serializers.SubtaskSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.SubtaskSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></em><a class="headerlink" href="#kanban_app.api.serializers.SubtaskSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.SubtaskSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#kanban_app.api.serializers.SubtaskSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="kanban_app.html#kanban_app.models.Subtask" title="kanban_app.models.Subtask"><code class="xref py py-class docutils literal notranslate"><span class="pre">Subtask</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.TaskSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.serializers.</span></span><span class="sig-name descname"><span class="pre">TaskSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.serializers.TaskSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serializer for the Task model.
+Includes all fields in the Task model and a nested serialization for subtasks.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.TaskSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#kanban_app.api.serializers.TaskSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.TaskSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></em><a class="headerlink" href="#kanban_app.api.serializers.TaskSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.TaskSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#kanban_app.api.serializers.TaskSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="kanban_app.html#kanban_app.models.Task" title="kanban_app.models.Task"><code class="xref py py-class docutils literal notranslate"><span class="pre">Task</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.UserSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.serializers.</span></span><span class="sig-name descname"><span class="pre">UserSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.serializers.UserSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serializer for the CustomUser model.
+Serializes the fields ‘id’, ‘email’, ‘first_name’, and ‘last_name’ for user data.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.UserSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#kanban_app.api.serializers.UserSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.UserSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'email',</span> <span class="pre">'first_name',</span> <span class="pre">'last_name']</span></em><a class="headerlink" href="#kanban_app.api.serializers.UserSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.serializers.UserSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#kanban_app.api.serializers.UserSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="kanban_app.html#kanban_app.models.CustomUser" title="kanban_app.models.CustomUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUser</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-kanban_app.api.urls">
+<span id="kanban-app-api-urls-module"></span><h2>kanban_app.api.urls module<a class="headerlink" href="#module-kanban_app.api.urls" title="Link to this heading"></a></h2>
+</section>
+<section id="module-kanban_app.api.views">
+<span id="kanban-app-api-views-module"></span><h2>kanban_app.api.views module<a class="headerlink" href="#module-kanban_app.api.views" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">ContactViewSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.ContactViewSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelViewSet</span></code></p>
+<p>Provides CRUD operations for Contact objects belonging to the authenticated user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.authentication_classes">
+<span class="sig-name descname"><span class="pre">authentication_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.authentication.TokenAuthentication'&gt;]</span></em><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.authentication_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.basename">
+<span class="sig-name descname"><span class="pre">basename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.basename" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.detail">
+<span class="sig-name descname"><span class="pre">detail</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.detail" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.get_queryset" title="Link to this definition"></a></dt>
+<dd><p>Restricts the queryset to contacts created by the authenticated user.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.IsAuthenticated'&gt;]</span></em><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#kanban_app.api.serializers.ContactSerializer" title="kanban_app.api.serializers.ContactSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContactSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.ContactViewSet.suffix">
+<span class="sig-name descname"><span class="pre">suffix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.ContactViewSet.suffix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.views.LoginView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">LoginView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.LoginView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObtainAuthToken</span></code></p>
+<p>LoginView handles user login by verifying credentials and returning a token.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="kanban_app.api.views.LoginView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.LoginView.post" title="Link to this definition"></a></dt>
+<dd><p>Authenticates the user and returns an authentication token if successful.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.views.SignupView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">SignupView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.SignupView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObtainAuthToken</span></code></p>
+<p>SignupView handles user registration and token generation.
+It inherits from ObtainAuthToken to simplify token handling.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="kanban_app.api.views.SignupView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.SignupView.post" title="Link to this definition"></a></dt>
+<dd><p>Registers a new user, sets their password, and creates an authentication token.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">SubtaskViewSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelViewSet</span></code></p>
+<p>Provides CRUD operations for all Subtask objects.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.authentication_classes">
+<span class="sig-name descname"><span class="pre">authentication_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.authentication.TokenAuthentication'&gt;]</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.authentication_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.basename">
+<span class="sig-name descname"><span class="pre">basename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.basename" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.detail">
+<span class="sig-name descname"><span class="pre">detail</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.detail" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.IsAuthenticated'&gt;]</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;QuerySet</span> <span class="pre">[&lt;Subtask:</span> <span class="pre">Implement</span> <span class="pre">Recipe</span> <span class="pre">Recommendation&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">Start</span> <span class="pre">Page</span> <span class="pre">Layout&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">Establish</span> <span class="pre">CSS</span> <span class="pre">Methodology&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">Setup</span> <span class="pre">Base</span> <span class="pre">Styles&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">create</span> <span class="pre">Contact</span> <span class="pre">Form&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">create</span> <span class="pre">Imprint&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">create</span> <span class="pre">task</span> <span class="pre">in</span> <span class="pre">overlay&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">check,</span> <span class="pre">if</span> <span class="pre">task</span> <span class="pre">appears</span> <span class="pre">on</span> <span class="pre">board&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">create</span> <span class="pre">new</span> <span class="pre">task&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">check</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">task</span> <span class="pre">appears</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">correct</span> <span class="pre">column&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">change</span> <span class="pre">rendered</span> <span class="pre">tasks</span> <span class="pre">to</span> <span class="pre">filtered</span> <span class="pre">tasks&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">create</span> <span class="pre">new</span> <span class="pre">task</span> <span class="pre">in</span> <span class="pre">overlay&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">test&gt;,</span> <span class="pre">&lt;Subtask:</span> <span class="pre">subtasks&gt;]&gt;</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#kanban_app.api.serializers.SubtaskSerializer" title="kanban_app.api.serializers.SubtaskSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubtaskSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.SubtaskViewSet.suffix">
+<span class="sig-name descname"><span class="pre">suffix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.SubtaskViewSet.suffix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">TaskViewSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.TaskViewSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelViewSet</span></code></p>
+<p>Provides CRUD operations for Task objects belonging to the authenticated user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.authentication_classes">
+<span class="sig-name descname"><span class="pre">authentication_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.authentication.TokenAuthentication'&gt;]</span></em><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.authentication_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.basename">
+<span class="sig-name descname"><span class="pre">basename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.basename" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.detail">
+<span class="sig-name descname"><span class="pre">detail</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.detail" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.get_queryset" title="Link to this definition"></a></dt>
+<dd><p>Restricts the queryset to tasks created by the authenticated user.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.IsAuthenticated'&gt;]</span></em><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#kanban_app.api.serializers.TaskSerializer" title="kanban_app.api.serializers.TaskSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TaskSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="kanban_app.api.views.TaskViewSet.suffix">
+<span class="sig-name descname"><span class="pre">suffix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#kanban_app.api.views.TaskViewSet.suffix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="kanban_app.api.views.current_user_view">
+<span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">current_user_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.current_user_view" title="Link to this definition"></a></dt>
+<dd><p>Allows authenticated users to view or update their own profile information.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="kanban_app.api.views.guest_user_view">
+<span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">guest_user_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.guest_user_view" title="Link to this definition"></a></dt>
+<dd><p>Checks if a guest user with a specific email exists in the system.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="kanban_app.api.views.summary_view">
+<span class="sig-prename descclassname"><span class="pre">kanban_app.api.views.</span></span><span class="sig-name descname"><span class="pre">summary_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kanban_app.api.views.summary_view" title="Link to this definition"></a></dt>
+<dd><p>Provides a summary of the user’s tasks, including counts by status and urgency.</p>
+</dd></dl>
+
+</section>
+<section id="module-kanban_app.api">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kanban_app.api" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="kanban_app.migrations.html" class="btn btn-neutral float-left" title="kanban_app.migrations package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="kanban_board.html" class="btn btn-neutral float-right" title="kanban_board package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Simon Kral.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

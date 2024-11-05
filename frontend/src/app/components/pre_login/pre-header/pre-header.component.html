@@ -1,0 +1,11 @@
+<header>
+	<div class="logo_box">
+		<img src="assets/img/logo.svg" />
+	</div>
+	@if (this.router.url === "/login") {
+	<div class="signup_box">
+		<span>Not a Join user?</span>
+		<a [routerLink]="['/signup']" class="button_blue">Sign up</a>
+	</div>
+	}
+</header>

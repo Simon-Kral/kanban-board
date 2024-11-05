@@ -1,0 +1,36 @@
+<div class="page_wrap">
+	<div class="legal_head">
+		<h1>Impressum</h1>
+		@if (authService.currentUserSig()){
+		<a [routerLink]="[utilityService.previousUrl]" class="back_arrow"><img src="assets/img/back_arrow.svg" /></a>
+		} @else {
+		<a [routerLink]="['']" class="back_arrow"><img src="assets/img/back_arrow.svg" /></a>
+		}
+	</div>
+	<div class="place-law-body">
+		<p>Angaben gemäß § 5 TMG</p>
+		<p>
+			Simon Kral <br />
+			Dellegarten 1<br />
+			56727 Reudelsterz <br />
+		</p>
+		<p>
+			Telefon: <a href="tel:+49160 97774153">+49160 97774153</a><br />
+			E-Mail: <a href="mailto:kontakt@simon-kral.de">kontakt&#64;simon-kral.de</a><br />
+		</p>
+		<br /><br /><br />
+		<h3>Haftungsausschluss:</h3>
+		<p>
+			<br /><strong>Haftung für Inhalte</strong><br /><br />
+			Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
+			verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der
+			Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend
+			entfernen.<br /><br /><strong>Urheberrecht</strong><br /><br />
+			Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen
+			Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche
+			gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.
+		</p>
+		<br /><br /><br />
+		Impressum vom <a href="https://www.impressum-generator.de">Impressum Generator</a> der <a href="https://www.kanzlei-hasselbach.de/">Kanzlei Hasselbach, Rechtsanwälte für Arbeitsrecht und Familienrecht</a>
+	</div>
+</div>

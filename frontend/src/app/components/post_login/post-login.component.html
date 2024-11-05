@@ -1,0 +1,14 @@
+<app-post-header></app-post-header>
+<app-sidebar></app-sidebar>
+<div class="content_wrap" (click)="closeMenus()">
+	<div class="content">
+		<router-outlet></router-outlet>
+	</div>
+</div>
+@if(utilityService.component){
+<section class="overlay">
+	<div class="overlay_card">
+		<ng-container *ngComponentOutlet="utilityService.component"></ng-container>
+	</div>
+</section>
+}

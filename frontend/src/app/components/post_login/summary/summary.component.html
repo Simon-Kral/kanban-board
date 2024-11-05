@@ -1,0 +1,47 @@
+<div class="page_wrap">
+	<section class="dashboard_head">
+		<div class="head_info">
+			<h1>Join 360</h1>
+			<div class="separator_blue_vert"></div>
+			<h2>Key Metrics at a Glance</h2>
+			<div class="separator_blue_hor"></div>
+		</div>
+		<div class="spinner_container">
+			@if (utilityService.loading) {
+			<img src="assets/img/spinner_pale_blue.gif" class="loading_spinner" />
+			}
+		</div>
+	</section>
+	<div class="backend_errors">
+		@for (error of dbService.backendErrorsSig(); track $index) {
+		<span class="backend_error">{{ error }}</span
+		><br />
+		}
+	</div>
+	<section class="dashboard_body">
+		<div class="information_cards">
+			@for (card of cards; track $index) {
+			<div class="{{ card.name }} card" [routerLink]="['/home/board']">
+				@if ($index <= 2) {
+				<div class="card_image"></div>
+				}
+				<div class="card_information">
+					<span class="amount">{{ card.amount }}</span>
+					<span class="description">{{ card.description }}</span>
+				</div>
+				@if (card.name === 'urgent') {
+				<div class="separator_grey"></div>
+				<div class="deadline">
+					<span class="date">{{ card.date }}</span>
+					<span>Upcoming Deadline</span>
+				</div>
+				}
+			</div>
+			}
+		</div>
+		<div class="greeting">
+			<span>{{ getTimeBasedGreeting() }},</span>
+			<span>{{ authService.currentUserSig()?.first_name }} {{ authService.currentUserSig()?.last_name }}</span>
+		</div>
+	</section>
+</div>

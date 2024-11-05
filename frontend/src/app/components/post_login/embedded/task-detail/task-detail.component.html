@@ -1,0 +1,59 @@
+<div class="embedded_wrap">
+	<div class="card_head">
+		<span class="task_category" [style]="utilityService.getCategoryStyle(utilityService.dataSig().category)">{{ utilityService.dataSig().category }}</span>
+		<div class="close_button" (click)="utilityService.hideOverlay(true)"></div>
+	</div>
+	<div class="card_body">
+		<div class="task_data">
+			<h1>{{ data.title }}</h1>
+			<span>{{ data.description }}</span>
+			<span>Due date: {{ data.due_date.split('-').reverse().join('/') }}</span>
+			<span>Priority: {{ getPrio() }} <img class="{{ utilityService.getPrioStrFromNr(data.prio) }}" src="assets/img/prio_{{ utilityService.getPrioStrFromNr(data.prio) }}.png" /></span>
+			<div class="assigned_to_users">
+				<span>Assigned To:</span>
+				@for (uid of data.assigned_to; track $index) {
+				<div class="contact">
+					<span class="contact_initials" [style]="{ 'background-color': utilityService.getContactParamById(uid, 'color') }">{{ utilityService.getContactParamById(uid, 'initials') }}</span>
+					<span>{{ utilityService.getContactParamById(uid, 'first_name') }} {{ utilityService.getContactParamById(uid, 'last_name') }}</span>
+				</div>
+				}
+			</div>
+			<div class="subtasks">
+				<span>Subtasks:</span>
+				@for (subtask of data.subtasks; track $index) {
+				<div class="subtask">
+					<input type="checkbox" [checked]="subtask.done" (click)="checkSubtask(data, subtask)" />
+					<span>{{ subtask.title }}</span>
+				</div>
+				}
+			</div>
+		</div>
+		<div class="backend_errors">
+			@for (error of dbService.backendErrorsSig(); track $index) {
+			<span class="backend_error">{{ error }}</span
+			><br />
+			}
+		</div>
+		<div class="task_options">
+			<div class="spinner_container">
+				@if (utilityService.loading) {
+				<img src="assets/img/spinner_pale_blue.gif" class="loading_spinner" />
+				}
+			</div>
+			<div class="task_option" (click)="deleteTask()"><img src="assets/img/delete.png" /><span>Delete</span></div>
+			<div class="separator"></div>
+			<div class="menu_overlay" [ngStyle]="{ display: utilityService.moveMenu ? 'flex' : 'none' }" (click)="closeMoveMenu()"></div>
+			<div class="menu">
+				<div class="move_menu" [ngStyle]="{ display: utilityService.moveMenu ? 'flex' : 'none' }">
+					<a (click)="moveTask('todo')">To do</a>
+					<a (click)="moveTask('inProgress')">In progress</a>
+					<a (click)="moveTask('awaitFeedback')">Await feedback</a>
+					<a (click)="moveTask('done')">Done</a>
+				</div>
+				<a class="task_option" (click)="toggleMoveMenu()"> <img src="assets/img/board.png" /><span>Move</span> </a>
+			</div>
+			<div class="separator"></div>
+			<div class="task_option" (click)="openEditTask()"><img src="assets/img/edit.png" /><span>Edit</span></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,108 @@
+@import '../../../../styles.scss';
+
+table {
+	tr {
+		th {
+			text-align: left;
+			padding-right: 8px;
+		}
+		td {
+			padding-right: 8px;
+		}
+	}
+}
+
+.show_mobile {
+	display: none;
+	// responsive
+	@include break(xs) {
+		display: block;
+	}
+}
+
+header {
+	@include dFlex($jc: space-between);
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: calc(100% - $sidebar-width);
+	height: $header-height;
+	padding: 0 40px 0 116px;
+	background-color: white;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+	z-index: 70;
+	.logo {
+		width: 32px;
+	}
+	nav {
+		@include dFlex();
+		gap: 16px;
+		.help_link {
+			img {
+				height: 20px;
+				margin-right: 2px;
+				&:hover {
+					height: 24px;
+					margin-right: 0px;
+				}
+			}
+		}
+		.user_menu_link {
+			@include dFlex();
+			@include font($color: $light-blue, $size: 20px, $weight: 700);
+			width: 56px;
+			height: 56px;
+			border-radius: 50%;
+			border: 3px solid $pale-blue;
+			&:hover {
+				background-color: #0c2e621f;
+				cursor: pointer;
+			}
+		}
+	}
+	// responsive
+	@include break(xs) {
+		width: 100%;
+		padding: 0 16px 0 16px;
+	}
+	@include break(xxs) {
+		.title {
+			display: none;
+		}
+	}
+}
+
+.user_menu {
+	@include dFlex($fd: column, $ai: flex-start);
+	width: 150px;
+	position: absolute;
+	top: $header-height;
+	right: 10px;
+	padding: 10px;
+	background-color: $pale-blue;
+	border-radius: 20px 0px 20px 20px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+	z-index: 80;
+	animation: fadeIn 200ms;
+	a {
+		@include font($color: $disabled);
+		width: 100%;
+		text-align: start;
+		padding: 13.5px 0px 13.5px 16px;
+		border-radius: 16px;
+		text-decoration: none;
+		cursor: pointer;
+		&:hover {
+			background-color: $pale-blue-hover;
+		}
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

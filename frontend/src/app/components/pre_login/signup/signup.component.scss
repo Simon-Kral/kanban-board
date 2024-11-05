@@ -1,0 +1,63 @@
+@import '../../../../styles.scss';
+
+.form_button_wrap {
+	@include dFlex();
+	margin-top: 20px;
+}
+.button_blue {
+	@include buttonBlue();
+	// responsive
+	@include break(xxs) {
+		min-width: 180px;
+	}
+}
+
+.checkbox_with_spinner {
+	@include dFlex($ai: center, $jc: flex-start);
+	gap: 48px;
+	width: 100%;
+	.default_form_input {
+		margin-bottom: 0;
+	}
+	// responsive
+	@include break(sm) {
+		gap: 32px;
+	}
+	@include break(xxs) {
+		gap: 8px;
+	}
+}
+
+.checkbox_element {
+	@include checkboxElement();
+}
+
+.back_arrow {
+	position: absolute;
+	top: 64px;
+	left: 48px;
+	// responsive
+	@include break(sm) {
+		top: 40px;
+		left: 40px;
+	}
+	@include break(xxs) {
+		left: 16px;
+	}
+}
+
+.separator {
+	@include separator($width: 150px, $height: 3px, $color: $light-blue);
+}
+
+.form_element {
+	@include formElement();
+}
+
+.input_element {
+	@include inputElement();
+}
+
+.input_img {
+	@include inputImg();
+}

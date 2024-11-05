@@ -1,0 +1,181 @@
+@import 'app/mixins/general.scss';
+@import 'app/mixins/form.scss';
+
+$bg-color: #f6f7f8;
+$pale-blue: #2a3647;
+$pale-blue-hover: #2a3d59;
+$light-blue: #29abe2;
+$email_blue: #007cee;
+$dark-blue: #091931;
+$light-grey: #d1d1d1;
+$li-grey: #eeeeee;
+$link-grey: #a8a8a8;
+$link-grey-hover: #909090;
+$error-red: #ff001f;
+$required-red: #ff8190;
+$disabled: #cdcdcd;
+
+$header-height: 96px;
+$sidebar-width: 232px;
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: $bg-color;
+	overflow: hidden;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Inter', sans-serif;
+	transition: all 100ms;
+	::-webkit-scrollbar {
+		background: transparent;
+		width: 6px;
+		height: 6px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		background: $link-grey;
+		border-radius: 24px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: $link-grey-hover;
+	}
+}
+
+h1 {
+	@include font($weight: 700, $size: 61px);
+	// responsive
+	@include break(md1) {
+		@include font($size: 48px, $weight: 700);
+	}
+}
+
+h2 {
+	@include font($weight: 400, $size: 27px, $color: $pale-blue);
+	// responsive
+	@include break(md1) {
+		@include font($weight: 400, $size: 21px, $color: $pale-blue);
+	}
+}
+
+.mb8 {
+	margin-bottom: 8px;
+}
+
+.mb22 {
+	margin-bottom: 22px;
+}
+
+.mtb42 {
+	margin: 0 42px;
+}
+
+.zi4 {
+	position: relative;
+	z-index: 4;
+}
+
+.zi8 {
+	position: relative;
+	z-index: 8;
+}
+
+.zi12 {
+	position: relative;
+	z-index: 12;
+}
+
+.zi16 {
+	position: relative;
+	z-index: 16;
+}
+
+.required {
+	@include font($weight: 400, $size: 20px, $color: $required-red);
+}
+
+.invalid {
+	border: 1px solid $error-red !important;
+}
+
+.d_none {
+	display: none !important;
+}
+
+.pre_headline {
+	@include dFlex($fd: column);
+	gap: 16px;
+	margin-bottom: 32px;
+}
+
+.pre_body {
+	form {
+		@include dFlex($fd: column);
+		gap: 12px;
+	}
+}
+
+.error_message {
+	@include font($color: $error-red, $size: 12px);
+}
+.backend_errors {
+	min-width: 1px;
+	min-height: 19.5px;
+	.backend_error {
+		@include font($color: $error-red);
+	}
+}
+
+.legals_nav {
+	@include dFlex($jc: space-between);
+	a {
+		padding: 0 2.3px;
+		@include font($color: $link-grey);
+		text-decoration: none;
+		&:hover {
+			@include font($weight: 700, $color: $light-blue);
+			padding: 0;
+		}
+	}
+}
+
+.spinner_container {
+	width: 56px;
+	height: 56px;
+	.loading_spinner {
+		width: 56px;
+		height: 56px;
+	}
+	// responsive
+	@include break(md2) {
+		width: 32px;
+		height: 32px;
+		.loading_spinner {
+			width: 32px;
+			height: 32px;
+		}
+	}
+}
+
+.back_arrow {
+	cursor: pointer;
+	width: 32px;
+	height: 33px;
+	border-radius: 32px;
+	&:hover {
+		background-color: $li-grey;
+	}
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('assets/fonts/Inter/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+}

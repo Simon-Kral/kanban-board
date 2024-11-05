@@ -1,0 +1,68 @@
+<div class="embedded_wrap">
+	<div class="close_button" (click)="utilityService.hideOverlay(false)"></div>
+	<section class="card_head">
+		<img src="assets/img/logo_inverted_small.svg" />
+		<h3>Edit contact</h3>
+		<div class="separator"></div>
+	</section>
+	<section class="card_body">
+		<span class="contact_initials_big" [style]="{ 'background-color': utilityService.dataSig()!.color }">{{ utilityService.dataSig()!.initials }}</span>
+		<form [formGroup]="editContactForm" (ngSubmit)="onSubmit()">
+			<div class="form_body">
+				<div class="form_element">
+					<div class="input_element" [ngClass]="{ invalid: utilityService.formInvalid(editContactForm.controls.name) }">
+						<input type="text" placeholder="Name" formControlName="name" maxlength="40" />
+						<div class="input_img">
+							<img src="assets/img/person.svg" />
+						</div>
+					</div>
+					<div class="element_errors">
+						@if (utilityService.formInvalid(editContactForm.controls.name)) { @if (editContactForm.controls.name.errors?.['required']) {
+						<span class="error_message">Please enter a name.</span>
+						} @else if (editContactForm.controls.name.errors?.['nameIsFullName']) {
+						<span class="error_message">{{editContactForm.controls.name.errors?.['nameIsFullName']}}</span>
+						} }
+					</div>
+				</div>
+				<div class="form_element">
+					<div class="input_element" [ngClass]="{ invalid: utilityService.formInvalid(editContactForm.controls.email) }">
+						<input type="email" placeholder="Email" formControlName="email" maxlength="30" />
+						<div class="input_img">
+							<img src="assets/img/mail.svg" />
+						</div>
+					</div>
+					<div class="element_errors">
+						@if (utilityService.formInvalid(editContactForm.controls.email)) { @if (editContactForm.controls.email.errors?.['required']) {
+						<span class="error_message">Please enter an email address.</span>
+						} @if (editContactForm.controls.email.errors?.['email']) {
+						<span class="error_message"> This is not a valid email address. </span>
+						} }
+					</div>
+				</div>
+				<div class="form_element">
+					<div class="input_element">
+						<input type="text" placeholder="Phone" formControlName="phone" maxlength="30" />
+						<div class="input_img">
+							<img src="assets/img/phone.svg" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="backend_errors">
+				@for (error of dbService.backendErrorsSig(); track $index) {
+				<span class="backend_error">{{ error }}</span
+				><br />
+				}
+			</div>
+			<div class="form_footer">
+				<button class="button_white" type="button" (click)="deleteContact()">Delete</button>
+				<button class="button_blue" type="submit" [disabled]="!editContactForm.valid || utilityService.loading"><span>Save</span><img src="assets/img/check_white.svg" /></button>
+				<div class="spinner_container">
+					@if (utilityService.loading) {
+					<img src="assets/img/spinner_pale_blue.gif" class="loading_spinner" />
+					}
+				</div>
+			</div>
+		</form>
+	</section>
+</div>
